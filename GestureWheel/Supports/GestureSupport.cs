@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GestureWheel.Interop;
 using GestureWheel.Managers;
@@ -11,9 +12,12 @@ namespace GestureWheel.Supports
     {
         #region Fields
         private static bool _isWheelDown;
+        private static bool _isCanceled;
+        private static int _gestureStartX;
+        private static int _gestureStartY;
         private static PointerTouchInfo[] _pointers;
         private static IKeyboardMouseEvents _globalHook;
-        private static InputSimulator _inputSimulator = new();
+        private static readonly InputSimulator _inputSimulator = new();
         #endregion
 
         #region Private Methods
@@ -59,13 +63,18 @@ namespace GestureWheel.Supports
                 return;
 
             _isWheelDown = false;
+            _isCanceled = false;
 
-            for (int i = 0; i < _pointers.Length; i++)
+            if (_pointers is not null)
             {
-                _pointers[i].PointerInfo.PointerFlags = PointerFlags.UP;
-            }
+                for (int i = 0; i < _pointers.Length; i++)
+                {
+                    _pointers[i].PointerInfo.PointerFlags = PointerFlags.UP;
+                }
 
-            TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+                TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+                _pointers = null;
+            }
         }
 
         private static void GlobalHook_MouseDown(object sender, MouseEventArgs e)
@@ -74,32 +83,51 @@ namespace GestureWheel.Supports
                 return;
 
             _isWheelDown = true;
-
-            _pointers = CreatePointers(4).ToArray();
-
-            for (int i = 0; i < _pointers.Length; i++)
-            {
-                _pointers[i].PointerInfo.PtPixelLocation.X = e.X;
-                _pointers[i].PointerInfo.PtPixelLocation.Y = e.Y;
-                _pointers[i].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
-            }
-
-            TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+            _gestureStartX = e.X;
+            _gestureStartY = e.Y;
         }
 
         private static void GlobalHook_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!_isWheelDown)
+            if (!_isWheelDown || _isCanceled)
                 return;
 
-            for (int i = 0; i < _pointers.Length; i++)
+            var absX = Math.Abs(_gestureStartX - e.X);
+            var absY = Math.Abs(_gestureStartY - e.Y);
+
+            switch (_pointers)
             {
-                _pointers[i].PointerInfo.PtPixelLocation.X = e.X;
-                _pointers[i].PointerInfo.PtPixelLocation.Y = e.Y;
-                _pointers[i].PointerInfo.PointerFlags = PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+                case null when absY >= 50:
+                    _isCanceled = true;
+                    return;
+
+                case null when absX >= 50:
+                {
+                    _pointers = CreatePointers(4).ToArray();
+
+                    for (int i = 0; i < _pointers.Length; i++)
+                    {
+                        _pointers[i].PointerInfo.PtPixelLocation.X = e.X;
+                        _pointers[i].PointerInfo.PtPixelLocation.Y = e.Y;
+                        _pointers[i].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+                    }
+
+                    TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+                    break;
+                }
             }
 
-            TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+            if (_pointers is not null)
+            {
+                for (int i = 0; i < _pointers.Length; i++)
+                {
+                    _pointers[i].PointerInfo.PtPixelLocation.X = e.X;
+                    _pointers[i].PointerInfo.PtPixelLocation.Y = e.Y;
+                    _pointers[i].PointerInfo.PointerFlags = PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+                }
+
+                TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+            }
         }
 
         private static void GlobalHook_MouseDoubleClick(object sender, MouseEventArgs e)
