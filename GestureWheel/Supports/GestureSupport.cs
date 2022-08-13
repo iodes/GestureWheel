@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GestureWheel.Interop;
+using GestureWheel.Managers;
 using WindowsHook;
+using WindowsInput;
 
 namespace GestureWheel.Supports
 {
@@ -11,6 +13,7 @@ namespace GestureWheel.Supports
         private static bool _isWheelDown;
         private static PointerTouchInfo[] _pointers;
         private static IKeyboardMouseEvents _globalHook;
+        private static InputSimulator _inputSimulator = new();
         #endregion
 
         #region Private Methods
@@ -34,6 +37,7 @@ namespace GestureWheel.Supports
             _globalHook.MouseUp += GlobalHook_MouseUp;
             _globalHook.MouseDown += GlobalHook_MouseDown;
             _globalHook.MouseMove += GlobalHook_MouseMove;
+            _globalHook.MouseDoubleClick += GlobalHook_MouseDoubleClick;
 
             return TouchInjector.InitializeTouchInjection(feedbackMode: TouchFeedback.NONE);
         }
@@ -96,6 +100,18 @@ namespace GestureWheel.Supports
             }
 
             TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+        }
+
+        private static void GlobalHook_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button is not MouseButtons.Middle)
+                return;
+
+            if (!SettingsManager.Current.UseStartMenuOpen)
+                return;
+
+            _inputSimulator.Keyboard
+                .ModifiedKeyStroke(VirtualKeyCode.LCONTROL, VirtualKeyCode.ESCAPE);
         }
         #endregion
     }
