@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Wpf.Ui.Controls;
 
 namespace GestureWheel.Controls
@@ -9,8 +10,16 @@ namespace GestureWheel.Controls
         private readonly ToggleSwitch _toggleSwitch = new();
         #endregion
 
+        #region Events
+        public event EventHandler CheckChanged;
+        #endregion
+
         #region Properties
-        public bool IsChecked => _toggleSwitch.IsChecked ?? false;
+        public bool IsChecked
+        {
+            get => _toggleSwitch.IsChecked ?? false;
+            set => _toggleSwitch.IsChecked = value;
+        }
         #endregion
 
         #region Constructor
@@ -22,6 +31,8 @@ namespace GestureWheel.Controls
             AddChild(_toggleSwitch);
 
             Click += OnClick;
+            _toggleSwitch.Checked += ToggleSwitch_CheckChanged;
+            _toggleSwitch.Unchecked += ToggleSwitch_CheckChanged;
         }
         #endregion
 
@@ -29,6 +40,11 @@ namespace GestureWheel.Controls
         private void OnClick(object sender, RoutedEventArgs e)
         {
             _toggleSwitch.IsChecked = !_toggleSwitch.IsChecked;
+        }
+
+        private void ToggleSwitch_CheckChanged(object sender, RoutedEventArgs e)
+        {
+            CheckChanged?.Invoke(this, EventArgs.Empty);
         }
         #endregion
     }

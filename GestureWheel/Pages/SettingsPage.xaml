@@ -14,7 +14,7 @@
     mc:Ignorable="d">
 
     <StackPanel Margin="0,0,0,10" behaviors:MarginSetter.Margin="15,0,15,5">
-        <controls:CardToggleSwitch Icon="TasksApp24">
+        <controls:CardToggleSwitch x:Name="ToggleAutoStartup" Icon="TasksApp24">
             <controls:CardToggleSwitch.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -26,7 +26,7 @@
             </controls:CardToggleSwitch.Header>
         </controls:CardToggleSwitch>
 
-        <controls:CardToggleSwitch Icon="WindowApps24">
+        <controls:CardToggleSwitch x:Name="ToggleStartMenuOpen" Icon="WindowApps24">
             <controls:CardToggleSwitch.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock

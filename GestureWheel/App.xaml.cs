@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using GestureWheel.Managers;
 using GestureWheel.Supports;
 using Hardcodet.Wpf.TaskbarNotification;
 using Wpf.Ui.Common;
@@ -25,22 +26,7 @@ namespace GestureWheel
             _mainWindow?.Activate();
         }
 
-        private MenuItem CreateMenuItem(string header, Action action, SymbolRegular? icon = null)
-        {
-            var item = new MenuItem
-            {
-                Header = header
-            };
-
-            if (icon is not null)
-                item.SymbolIcon = icon.Value;
-
-            item.Click += delegate { action(); };
-            return item;
-        }
-        #endregion
-
-        private void App_OnStartup(object sender, StartupEventArgs e)
+        private void InitializeUserInterface()
         {
             _mainWindow = new MainWindow();
 
@@ -64,6 +50,28 @@ namespace GestureWheel
 
             _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("종료",
                 () => Current.Shutdown(), SymbolRegular.ArrowExit20));
+        }
+
+        private MenuItem CreateMenuItem(string header, Action action, SymbolRegular? icon = null)
+        {
+            var item = new MenuItem
+            {
+                Header = header
+            };
+
+            if (icon is not null)
+                item.SymbolIcon = icon.Value;
+
+            item.Click += delegate { action(); };
+            return item;
+        }
+        #endregion
+
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            SettingsManager.Load();
+            SettingsManager.UpdateAutoStartup();
+            InitializeUserInterface();
 
             GestureSupport.Start();
         }
@@ -73,11 +81,11 @@ namespace GestureWheel
             _mainWindow?.Close();
             GestureSupport.Stop();
 
-            if (_taskbarIcon is not null)
-            {
-                _taskbarIcon.IsEnabled = false;
-                _taskbarIcon.Dispose();
-            }
+            if (_taskbarIcon is null)
+                return;
+
+            _taskbarIcon.IsEnabled = false;
+            _taskbarIcon.Dispose();
         }
     }
 }
