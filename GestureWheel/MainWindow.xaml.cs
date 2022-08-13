@@ -1,4 +1,4 @@
-﻿using GestureWheel.Supports;
+﻿using System.Windows;
 
 namespace GestureWheel
 {
@@ -8,7 +8,7 @@ namespace GestureWheel
         public MainWindow()
         {
             InitializeComponent();
-            GestureSupport.Start();
+            Wpf.Ui.Appearance.Watcher.Watch(this);
         }
         #endregion
     }

@@ -1,6 +1,83 @@
-﻿namespace GestureWheel
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
+using GestureWheel.Supports;
+using Hardcodet.Wpf.TaskbarNotification;
+using Wpf.Ui.Common;
+using MenuItem = Wpf.Ui.Controls.MenuItem;
+
+namespace GestureWheel
 {
     public partial class App
     {
+        #region Fields
+        private MainWindow _mainWindow;
+        private TaskbarIcon _taskbarIcon;
+        #endregion
+
+        #region Private Methods
+        private void ShowWithActivate()
+        {
+            _mainWindow?.Show();
+            _mainWindow?.Activate();
+        }
+
+        private MenuItem CreateMenuItem(string header, Action action, SymbolRegular? icon = null)
+        {
+            var item = new MenuItem
+            {
+                Header = header
+            };
+
+            if (icon is not null)
+                item.SymbolIcon = icon.Value;
+
+            item.Click += delegate { action(); };
+            return item;
+        }
+        #endregion
+
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            _mainWindow = new MainWindow();
+
+            _taskbarIcon = new TaskbarIcon
+            {
+                IsEnabled = true,
+                ToolTipText = "GestureWheel",
+                ContextMenu = new ContextMenu(),
+                Icon = Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly()?.ManifestModule.Name!),
+            };
+
+            _taskbarIcon.TrayMouseDoubleClick += delegate { ShowWithActivate(); };
+
+            _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("프로그램 설정",
+                ShowWithActivate, SymbolRegular.Wrench20));
+
+            _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("업데이트 확인",
+                () => Process.Start("https://github.com/iodes/GestureWheel"), SymbolRegular.Earth20));
+
+            _taskbarIcon.ContextMenu.Items.Add(new Separator());
+
+            _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("종료",
+                () => Current.Shutdown(), SymbolRegular.ArrowExit20));
+
+            GestureSupport.Start();
+        }
+
+        private void App_OnExit(object sender, ExitEventArgs e)
+        {
+            _mainWindow?.Close();
+            GestureSupport.Stop();
+
+            if (_taskbarIcon is not null)
+            {
+                _taskbarIcon.IsEnabled = false;
+                _taskbarIcon.Dispose();
+            }
+        }
     }
 }
