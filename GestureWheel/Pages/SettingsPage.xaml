@@ -14,17 +14,23 @@
     mc:Ignorable="d">
 
     <StackPanel Margin="0,0,0,10" behaviors:MarginSetter.Margin="15,0,15,5">
-        <controls:CardToggleSwitch x:Name="ToggleAutoStartup" Icon="TasksApp24">
-            <controls:CardToggleSwitch.Header>
+        <ui:CardControl Icon="ArrowMove24">
+            <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
                         FontSize="13"
                         FontWeight="Medium"
-                        Text="시작 프로그램 등록" />
-                    <TextBlock FontSize="12" Text="Windows 시작 시 자동으로 휠 제스쳐를 활성화합니다." />
+                        Text="휠 제스쳐 민감도" />
+                    <TextBlock FontSize="12" Text="휠 제스쳐의 민감도를 설정합니다." />
                 </StackPanel>
-            </controls:CardToggleSwitch.Header>
-        </controls:CardToggleSwitch>
+            </ui:CardControl.Header>
+
+            <ComboBox x:Name="ComboGestureSensitivity" MinWidth="100">
+                <ComboBoxItem Content="높음" />
+                <ComboBoxItem Content="보통" />
+                <ComboBoxItem Content="낮음" />
+            </ComboBox>
+        </ui:CardControl>
 
         <controls:CardToggleSwitch x:Name="ToggleStartMenuOpen" Icon="WindowApps24">
             <controls:CardToggleSwitch.Header>
@@ -34,6 +40,18 @@
                         FontWeight="Medium"
                         Text="휠 두 번 클릭으로 시작 메뉴 열기" />
                     <TextBlock FontSize="12" Text="휠 버튼을 두 번 클릭하여 시작 메뉴를 열거나 닫습니다." />
+                </StackPanel>
+            </controls:CardToggleSwitch.Header>
+        </controls:CardToggleSwitch>
+
+        <controls:CardToggleSwitch x:Name="ToggleAutoStartup" Icon="TasksApp24">
+            <controls:CardToggleSwitch.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="시작 프로그램 등록" />
+                    <TextBlock FontSize="12" Text="Windows 시작 시 자동으로 휠 제스쳐를 활성화합니다." />
                 </StackPanel>
             </controls:CardToggleSwitch.Header>
         </controls:CardToggleSwitch>

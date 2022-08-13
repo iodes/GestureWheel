@@ -8,6 +8,9 @@ namespace GestureWheel.Models
         public bool UseAutoStartup { get; set; } = true;
 
         [JsonProperty]
-        public bool UseStartMenuOpen { get; set; } = true;
+        public bool UseStartMenuOpen { get; set; }
+
+        [JsonProperty]
+        public int GestureSensitivity { get; set; } = 1;
     }
 }

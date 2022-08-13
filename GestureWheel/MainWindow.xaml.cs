@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
 
 namespace GestureWheel
 {
@@ -9,6 +9,15 @@ namespace GestureWheel
         {
             InitializeComponent();
             Wpf.Ui.Appearance.Watcher.Watch(this);
+            Closing += OnClosing;
+        }
+        #endregion
+
+        #region Private Events
+        private void OnClosing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
         #endregion
     }

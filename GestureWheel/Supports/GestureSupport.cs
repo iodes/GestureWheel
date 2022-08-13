@@ -95,13 +95,21 @@ namespace GestureWheel.Supports
             var absX = Math.Abs(_gestureStartX - e.X);
             var absY = Math.Abs(_gestureStartY - e.Y);
 
+            var sensitivity = SettingsManager.Current.GestureSensitivity switch
+            {
+                0 => 10,
+                1 => 50,
+                2 => 100,
+                _ => 50
+            };
+
             switch (_pointers)
             {
-                case null when absY >= 50:
+                case null when absY >= sensitivity:
                     _isCanceled = true;
                     return;
 
-                case null when absX >= 50:
+                case null when absX >= sensitivity:
                 {
                     _pointers = CreatePointers(4).ToArray();
 

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using GestureWheel.Managers;
 
 namespace GestureWheel.Pages
@@ -24,6 +25,12 @@ namespace GestureWheel.Pages
                 SettingsManager.Current.UseStartMenuOpen = ToggleStartMenuOpen.IsChecked;
                 SettingsManager.Save();
             };
+
+            ComboGestureSensitivity.SelectionChanged += delegate
+            {
+                SettingsManager.Current.GestureSensitivity = ComboGestureSensitivity.SelectedIndex;
+                SettingsManager.Save();
+            };
         }
         #endregion
 
@@ -32,6 +39,7 @@ namespace GestureWheel.Pages
         {
             ToggleAutoStartup.IsChecked = SettingsManager.Current.UseAutoStartup;
             ToggleStartMenuOpen.IsChecked = SettingsManager.Current.UseStartMenuOpen;
+            ComboGestureSensitivity.SelectedIndex = Math.Max(0, Math.Min(ComboGestureSensitivity.Items.Count - 1, SettingsManager.Current.GestureSensitivity));
         }
         #endregion
     }
