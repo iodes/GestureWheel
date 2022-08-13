@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using GestureWheel.Managers;
 using GestureWheel.Supports;
 using Hardcodet.Wpf.TaskbarNotification;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Wpf.Ui.Common;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 
@@ -69,6 +71,12 @@ namespace GestureWheel
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
             SettingsManager.Load();
             SettingsManager.UpdateAutoStartup();
             InitializeUserInterface();

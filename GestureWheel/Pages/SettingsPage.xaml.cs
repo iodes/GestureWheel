@@ -26,6 +26,12 @@ namespace GestureWheel.Pages
                 SettingsManager.Save();
             };
 
+            ToggleQuickNewDesktop.CheckChanged += delegate
+            {
+                SettingsManager.Current.UseQuickNewDesktop = ToggleQuickNewDesktop.IsChecked;
+                SettingsManager.Save();
+            };
+
             ComboGestureSensitivity.SelectionChanged += delegate
             {
                 SettingsManager.Current.GestureSensitivity = ComboGestureSensitivity.SelectedIndex;
@@ -39,6 +45,7 @@ namespace GestureWheel.Pages
         {
             ToggleAutoStartup.IsChecked = SettingsManager.Current.UseAutoStartup;
             ToggleStartMenuOpen.IsChecked = SettingsManager.Current.UseStartMenuOpen;
+            ToggleQuickNewDesktop.IsChecked = SettingsManager.Current.UseQuickNewDesktop;
             ComboGestureSensitivity.SelectedIndex = Math.Max(0, Math.Min(ComboGestureSensitivity.Items.Count - 1, SettingsManager.Current.GestureSensitivity));
         }
         #endregion

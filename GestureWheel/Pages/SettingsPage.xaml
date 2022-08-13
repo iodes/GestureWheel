@@ -25,10 +25,27 @@
                 </StackPanel>
             </ui:CardControl.Header>
 
-            <ComboBox x:Name="ComboGestureSensitivity" MinWidth="100">
+            <ComboBox x:Name="ComboGestureSensitivity" MinWidth="115">
                 <ComboBoxItem Content="높음" />
                 <ComboBoxItem Content="보통" />
                 <ComboBoxItem Content="낮음" />
+            </ComboBox>
+        </ui:CardControl>
+
+        <ui:CardControl Icon="DualScreenVerticalScroll24">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="수직 휠 제스쳐 동작" />
+                    <TextBlock FontSize="12" Text="수직 방향의 휠 제스쳐에 대한 동작을 설정합니다." />
+                </StackPanel>
+            </ui:CardControl.Header>
+
+            <ComboBox x:Name="ComboGestureVerticalMode" MinWidth="115">
+                <ComboBoxItem Content="스크롤" />
+                <ComboBoxItem Content="작업 보기" />
             </ComboBox>
         </ui:CardControl>
 
@@ -40,6 +57,18 @@
                         FontWeight="Medium"
                         Text="휠 두 번 클릭으로 시작 메뉴 열기" />
                     <TextBlock FontSize="12" Text="휠 버튼을 두 번 클릭하여 시작 메뉴를 열거나 닫습니다." />
+                </StackPanel>
+            </controls:CardToggleSwitch.Header>
+        </controls:CardToggleSwitch>
+
+        <controls:CardToggleSwitch x:Name="ToggleQuickNewDesktop" Icon="TabDesktopMultiple20">
+            <controls:CardToggleSwitch.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="휠 클릭으로 새 데스크톱 생성" />
+                    <TextBlock FontSize="12" Text="컨트롤 키를 누른 채로 휠을 클릭하여 새 데스크톱을 만듭니다." />
                 </StackPanel>
             </controls:CardToggleSwitch.Header>
         </controls:CardToggleSwitch>

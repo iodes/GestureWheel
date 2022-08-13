@@ -58,7 +58,7 @@ namespace GestureWheel.Managers
 
         public static void Save()
         {
-            var settingsText = JsonConvert.SerializeObject(_current, Formatting.Indented);
+            var settingsText = JsonConvert.SerializeObject(_current);
             File.WriteAllText(EnvironmentSupport.Settings, settingsText);
         }
         #endregion

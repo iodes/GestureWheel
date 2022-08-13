@@ -12,6 +12,7 @@ namespace GestureWheel.Supports
     {
         #region Fields
         private static bool _isWheelDown;
+        private static bool _isCtrlDown;
         private static bool _isCanceled;
         private static int _gestureStartX;
         private static int _gestureStartY;
@@ -42,6 +43,8 @@ namespace GestureWheel.Supports
             _globalHook.MouseDown += GlobalHook_MouseDown;
             _globalHook.MouseMove += GlobalHook_MouseMove;
             _globalHook.MouseDoubleClick += GlobalHook_MouseDoubleClick;
+            _globalHook.KeyDown += GlobalHook_KeyDown;
+            _globalHook.KeyUp += GlobalHook_KeyUp;
 
             return TouchInjector.InitializeTouchInjection(feedbackMode: TouchFeedback.NONE);
         }
@@ -51,6 +54,9 @@ namespace GestureWheel.Supports
             _globalHook.MouseUp -= GlobalHook_MouseUp;
             _globalHook.MouseDown -= GlobalHook_MouseDown;
             _globalHook.MouseMove -= GlobalHook_MouseMove;
+            _globalHook.MouseDoubleClick -= GlobalHook_MouseDoubleClick;
+            _globalHook.KeyDown -= GlobalHook_KeyDown;
+            _globalHook.KeyUp -= GlobalHook_KeyUp;
             _globalHook?.Dispose();
             _globalHook = null;
         }
@@ -74,6 +80,12 @@ namespace GestureWheel.Supports
 
                 TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
                 _pointers = null;
+            }
+
+            if (SettingsManager.Current.UseQuickNewDesktop && _isCtrlDown)
+            {
+                _inputSimulator.Keyboard
+                    .ModifiedKeyStroke(new[] { VirtualKeyCode.LWIN, VirtualKeyCode.CONTROL }, VirtualKeyCode.VK_D);
             }
         }
 
@@ -147,7 +159,23 @@ namespace GestureWheel.Supports
                 return;
 
             _inputSimulator.Keyboard
-                .ModifiedKeyStroke(VirtualKeyCode.LCONTROL, VirtualKeyCode.ESCAPE);
+                .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.ESCAPE);
+        }
+
+        private static void GlobalHook_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData is Keys.LControlKey or Keys.RControlKey)
+            {
+                _isCtrlDown = true;
+            }
+        }
+
+        private static void GlobalHook_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData.HasFlag(Keys.LControlKey) || e.KeyData.HasFlag(Keys.RControlKey))
+            {
+                _isCtrlDown = false;
+            }
         }
         #endregion
     }

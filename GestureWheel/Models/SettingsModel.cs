@@ -11,6 +11,9 @@ namespace GestureWheel.Models
         public bool UseStartMenuOpen { get; set; }
 
         [JsonProperty]
+        public bool UseQuickNewDesktop { get; set; } = true;
+
+        [JsonProperty]
         public int GestureSensitivity { get; set; } = 1;
     }
 }
