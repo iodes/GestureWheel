@@ -8,10 +8,10 @@ namespace GestureWheel.Models
         public bool UseAutoStartup { get; set; } = true;
 
         [JsonProperty]
-        public bool UseStartMenuOpen { get; set; }
+        public bool UseQuickNewDesktop { get; set; } = true;
 
         [JsonProperty]
-        public bool UseQuickNewDesktop { get; set; } = true;
+        public int DoubleClickActionType { get; set; } = 2;
 
         [JsonProperty]
         public int GestureSensitivity { get; set; } = 1;

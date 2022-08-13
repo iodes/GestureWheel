@@ -57,6 +57,7 @@ namespace GestureWheel.Supports
             _globalHook.MouseDoubleClick -= GlobalHook_MouseDoubleClick;
             _globalHook.KeyDown -= GlobalHook_KeyDown;
             _globalHook.KeyUp -= GlobalHook_KeyUp;
+
             _globalHook?.Dispose();
             _globalHook = null;
         }
@@ -155,11 +156,23 @@ namespace GestureWheel.Supports
             if (e.Button is not MouseButtons.Middle)
                 return;
 
-            if (!SettingsManager.Current.UseStartMenuOpen)
-                return;
+            switch (SettingsManager.Current.DoubleClickActionType)
+            {
+                case 0:
+                    break;
 
-            _inputSimulator.Keyboard
-                .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.ESCAPE);
+                case 1:
+                    _inputSimulator.Keyboard
+                        .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.ESCAPE);
+
+                    break;
+
+                case 2:
+                    _inputSimulator.Keyboard
+                        .ModifiedKeyStroke(VirtualKeyCode.LWIN, VirtualKeyCode.TAB);
+
+                    break;
+            }
         }
 
         private static void GlobalHook_KeyDown(object sender, KeyEventArgs e)
