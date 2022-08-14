@@ -39,6 +39,10 @@ namespace GestureWheel.Managers
             try
             {
                 var settingsText = File.ReadAllText(EnvironmentSupport.Settings);
+
+                if (string.IsNullOrEmpty(settingsText.Trim()))
+                    throw new InvalidOperationException("The contents of the config file are missing!");
+
                 _current = JsonConvert.DeserializeObject<Settings>(settingsText);
             }
             catch (Exception ex)
@@ -70,7 +74,7 @@ namespace GestureWheel.Managers
         {
             var settingsText = JsonConvert.SerializeObject(_current);
 
-            if (!string.IsNullOrEmpty(settingsText))
+            if (!string.IsNullOrEmpty(settingsText.Trim()))
                 File.WriteAllText(EnvironmentSupport.Settings, settingsText);
         }
         #endregion
