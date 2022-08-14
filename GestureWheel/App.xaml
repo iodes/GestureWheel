@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Startup="App_OnStartup" Exit="App_OnExit">
+    Exit="App_OnExit"
+    Startup="App_OnStartup">
 
     <Application.Resources>
         <ResourceDictionary>

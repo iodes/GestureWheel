@@ -9,11 +9,11 @@ namespace GestureWheel.Managers
     internal static class SettingsManager
     {
         #region Fields
-        private static SettingsModel _current;
+        private static Settings _current;
         #endregion
 
         #region Properties
-        public static SettingsModel Current
+        public static Settings Current
         {
             get
             {
@@ -30,12 +30,12 @@ namespace GestureWheel.Managers
         {
             if (!File.Exists(EnvironmentSupport.Settings))
             {
-                _current = new SettingsModel();
+                _current = new Settings();
                 Save();
             }
 
             var settingsText = File.ReadAllText(EnvironmentSupport.Settings);
-            _current = JsonConvert.DeserializeObject<SettingsModel>(settingsText);
+            _current = JsonConvert.DeserializeObject<Settings>(settingsText);
         }
 
         public static void UpdateAutoStartup()

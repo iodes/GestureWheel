@@ -13,6 +13,12 @@ namespace GestureWheel.Pages
 
             Loaded += OnLoaded;
 
+            ToggleAutoUpdate.CheckChanged += delegate
+            {
+                SettingsManager.Current.UseAutoUpdate = ToggleAutoUpdate.IsChecked;
+                SettingsManager.Save();
+            };
+
             ToggleAutoStartup.CheckChanged += delegate
             {
                 SettingsManager.Current.UseAutoStartup = ToggleAutoStartup.IsChecked;
@@ -43,6 +49,7 @@ namespace GestureWheel.Pages
         #region Private Events
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            ToggleAutoUpdate.IsChecked = SettingsManager.Current.UseAutoUpdate;
             ToggleAutoStartup.IsChecked = SettingsManager.Current.UseAutoStartup;
             ToggleQuickNewDesktop.IsChecked = SettingsManager.Current.UseQuickNewDesktop;
             ComboDoubleClickActionType.SelectedIndex = Math.Max(0, Math.Min(ComboDoubleClickActionType.Items.Count - 1, SettingsManager.Current.DoubleClickActionType));

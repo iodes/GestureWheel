@@ -20,7 +20,37 @@
                         FontSize="13"
                         FontWeight="Medium"
                         Text="프로그램 버전" />
-                    <TextBlock FontSize="12" Text="1.0.0.0" />
+                    <TextBlock
+                        x:Name="TextVersion"
+                        FontSize="12"
+                        Text="1.0.0.0" />
+                </StackPanel>
+            </ui:CardControl.Header>
+        </ui:CardControl>
+
+        <ui:CardControl
+            x:Name="BtnCheckUpdate"
+            Click="BtnCheckUpdate_OnClick"
+            Icon="ArrowUpload20">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="최신 업데이트 확인" />
+                    <TextBlock FontSize="12" Text="프로그램의 최신 업데이트를 확인 및 설치합니다." />
+                </StackPanel>
+            </ui:CardControl.Header>
+        </ui:CardControl>
+
+        <ui:CardControl x:Name="BtnOpenHomepage" Click="BtnOpenHomepage_OnClick" Icon="Open24">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="공식 홈페이지" />
+                    <TextBlock FontSize="12" Text="프로그램의 공식 홈페이지를 방문합니다." />
                 </StackPanel>
             </ui:CardControl.Header>
         </ui:CardControl>

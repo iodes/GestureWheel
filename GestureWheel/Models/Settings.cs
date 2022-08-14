@@ -2,8 +2,11 @@
 
 namespace GestureWheel.Models
 {
-    internal class SettingsModel
+    internal class Settings
     {
+        [JsonProperty]
+        public bool UseAutoUpdate { get; set; } = true;
+
         [JsonProperty]
         public bool UseAutoStartup { get; set; } = true;
 

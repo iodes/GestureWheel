@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using GestureWheel.Managers;
 using GestureWheel.Supports;
+using GestureWheel.Utilities;
 using Hardcodet.Wpf.TaskbarNotification;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -38,7 +39,6 @@ namespace GestureWheel
             _taskbarIcon = new TaskbarIcon
             {
                 IsEnabled = true,
-                ToolTipText = "GestureWheel",
                 ContextMenu = new ContextMenu(),
                 Icon = Icon.ExtractAssociatedIcon(EnvironmentSupport.Executable)
             };
@@ -48,8 +48,8 @@ namespace GestureWheel
             _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("프로그램 설정",
                 ShowWithActivate, SymbolRegular.Wrench20));
 
-            _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("업데이트 확인",
-                () => Process.Start("https://github.com/iodes/GestureWheel"), SymbolRegular.Earth20));
+            _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("홈페이지 방문",
+                () => UrlUtility.Open("https://github.com/iodes/GestureWheel"), SymbolRegular.Open20));
 
             _taskbarIcon.ContextMenu.Items.Add(new Separator());
 
@@ -96,6 +96,18 @@ namespace GestureWheel
 
             if (Environment.GetCommandLineArgs().Contains("/Activate", StringComparer.OrdinalIgnoreCase))
                 ShowWithActivate();
+
+            if (SettingsManager.Current.UseAutoUpdate)
+            {
+                try
+                {
+                    _ = UpdateSupport.CheckUpdateAsync();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)

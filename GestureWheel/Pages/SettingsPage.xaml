@@ -73,5 +73,17 @@
                 </StackPanel>
             </controls:CardToggleSwitch.Header>
         </controls:CardToggleSwitch>
+
+        <controls:CardToggleSwitch x:Name="ToggleAutoUpdate" Icon="Earth24">
+            <controls:CardToggleSwitch.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="자동 업데이트 확인" />
+                    <TextBlock FontSize="12" Text="자동으로 프로그램의 최신 업데이트를 확인합니다." />
+                </StackPanel>
+            </controls:CardToggleSwitch.Header>
+        </controls:CardToggleSwitch>
     </StackPanel>
 </ui:UiPage>
