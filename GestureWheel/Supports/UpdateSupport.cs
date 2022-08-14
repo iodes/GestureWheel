@@ -44,9 +44,11 @@ namespace GestureWheel.Supports
             {
                 var updateDialog = new UpdateDialog(info);
                 updateDialog.ShowDialog();
+
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         public static async Task<UpdateInfo> GetLatestUpdateInfo()
