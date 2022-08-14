@@ -41,7 +41,7 @@ namespace GestureWheel.Managers
                 var settingsText = File.ReadAllText(EnvironmentSupport.Settings);
 
                 if (string.IsNullOrEmpty(settingsText.Trim()))
-                    throw new InvalidOperationException("The contents of the config file are missing!");
+                    throw new InvalidOperationException("The contents of the settings file are missing!");
 
                 _current = JsonConvert.DeserializeObject<Settings>(settingsText);
             }
@@ -55,18 +55,25 @@ namespace GestureWheel.Managers
 
         public static void UpdateAutoStartup()
         {
-            var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-
-            if (key is null)
-                return;
-
-            if (Current.UseAutoStartup)
+            try
             {
-                key.SetValue(nameof(GestureWheel), $"\"{EnvironmentSupport.Executable}\"");
+                var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+
+                if (key is null)
+                    return;
+
+                if (Current.UseAutoStartup)
+                {
+                    key.SetValue(nameof(GestureWheel), $"\"{EnvironmentSupport.Executable}\"");
+                }
+                else
+                {
+                    key.DeleteValue(nameof(GestureWheel), false);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                key.DeleteValue(nameof(GestureWheel), false);
+                Log.Error(ex, "Failed to register or delete startup programs!");
             }
         }
 
