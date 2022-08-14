@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using GestureWheel.Models;
 using GestureWheel.Supports;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace GestureWheel.Managers
 {
@@ -34,8 +36,17 @@ namespace GestureWheel.Managers
                 Save();
             }
 
-            var settingsText = File.ReadAllText(EnvironmentSupport.Settings);
-            _current = JsonConvert.DeserializeObject<Settings>(settingsText);
+            try
+            {
+                var settingsText = File.ReadAllText(EnvironmentSupport.Settings);
+                _current = JsonConvert.DeserializeObject<Settings>(settingsText);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "An error occurred while loading settings!");
+                _current = new Settings();
+                Save();
+            }
         }
 
         public static void UpdateAutoStartup()
@@ -58,7 +69,9 @@ namespace GestureWheel.Managers
         public static void Save()
         {
             var settingsText = JsonConvert.SerializeObject(_current);
-            File.WriteAllText(EnvironmentSupport.Settings, settingsText);
+
+            if (!string.IsNullOrEmpty(settingsText))
+                File.WriteAllText(EnvironmentSupport.Settings, settingsText);
         }
         #endregion
     }

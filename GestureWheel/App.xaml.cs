@@ -80,7 +80,7 @@ namespace GestureWheel
                 return;
 
             Log.Error(exception, "An unknown error has occurred!");
-            MessageBox.Show(exception.Message, $"{nameof(GestureWheel)} 오류", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(exception.Message, $"{nameof(GestureWheel)}", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
