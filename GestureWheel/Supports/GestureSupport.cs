@@ -69,9 +69,6 @@ namespace GestureWheel.Supports
             if (e.Button is not MouseButtons.Middle)
                 return;
 
-            _isWheelDown = false;
-            _isCanceled = false;
-
             if (_pointers is not null)
             {
                 for (int i = 0; i < _pointers.Length; i++)
@@ -82,12 +79,14 @@ namespace GestureWheel.Supports
                 TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
                 _pointers = null;
             }
-
-            if (SettingsManager.Current.UseQuickNewDesktop && _isCtrlDown)
+            else if (SettingsManager.Current.UseQuickNewDesktop && _isCtrlDown)
             {
                 _inputSimulator.Keyboard
                     .ModifiedKeyStroke(new[] { VirtualKeyCode.LWIN, VirtualKeyCode.CONTROL }, VirtualKeyCode.VK_D);
             }
+
+            _isWheelDown = false;
+            _isCanceled = false;
         }
 
         private static void GlobalHook_MouseDown(object sender, MouseEventArgs e)
@@ -116,13 +115,13 @@ namespace GestureWheel.Supports
                 _ => 50
             };
 
-            switch (_pointers)
+            if (_pointers is null)
             {
-                case null when absY >= sensitivity:
+                if (absY >= sensitivity)
+                {
                     _isCanceled = true;
-                    return;
-
-                case null when absX >= sensitivity:
+                }
+                else if (absX >= sensitivity)
                 {
                     _pointers = CreatePointers(4).ToArray();
 
@@ -134,11 +133,9 @@ namespace GestureWheel.Supports
                     }
 
                     TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
-                    break;
                 }
             }
-
-            if (_pointers is not null)
+            else
             {
                 for (int i = 0; i < _pointers.Length; i++)
                 {
@@ -177,7 +174,7 @@ namespace GestureWheel.Supports
 
         private static void GlobalHook_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData is Keys.LControlKey or Keys.RControlKey)
+            if (e.KeyData.HasFlag(Keys.LControlKey) || e.KeyData.HasFlag(Keys.RControlKey))
             {
                 _isCtrlDown = true;
             }
