@@ -1,3 +1,6 @@
+#define public Dependency_NoExampleSetup
+#include "CodeDependencies.iss"
+
 #define MyAppName "GestureWheel"
 #define MyAppVersion "1.0.0.0"
 #define MyAppPublisher "Kodnix"
@@ -13,6 +16,7 @@ AppSupportURL={#MyAppURL}
 UninstallDisplayName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 DefaultDirName={autopf}\{#MyAppName}
+ArchitecturesInstallIn64BitMode=x64
 DisableProgramGroupPage=yes
 ShowLanguageDialog=auto
 OutputBaseFilename=Setup
@@ -20,6 +24,9 @@ CloseApplications=no
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+
+[Messages]
+SetupWindowTitle = {#MyAppName} {#MyAppVersion}
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -30,6 +37,12 @@ Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Code]
+function InitializeSetup: Boolean;
+begin
+    Dependency_AddDotNet60Desktop;
+    Result := True;
+end;
+
 procedure TaskKill(FileName: String);
 var
     ResultCode: Integer;
@@ -46,6 +59,7 @@ begin
 end;
 
 [Files]
+Source: "Utilities\*"; Flags: dontcopy noencryption
 Source: "..\GestureWheel\bin\Release\net6.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs; BeforeInstall: TaskKill('{#MyAppExeName}')
 
 [UninstallDelete]
