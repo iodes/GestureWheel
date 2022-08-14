@@ -2,7 +2,7 @@
 #include "CodeDependencies.iss"
 
 #define MyAppName "GestureWheel"
-#define MyAppVersion "1.0.0.0"
+#define MyAppVersion "1.1.0.0"
 #define MyAppPublisher "Kodnix"
 #define MyAppURL "https://github.com/iodes/GestureWheel"
 #define MyAppExeName "GestureWheel.exe"
@@ -19,7 +19,7 @@ DefaultDirName={autopf}\{#MyAppName}
 ArchitecturesInstallIn64BitMode=x64
 DisableProgramGroupPage=yes
 ShowLanguageDialog=auto
-OutputBaseFilename=Setup
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}_Setup
 CloseApplications=no
 Compression=lzma
 SolidCompression=yes

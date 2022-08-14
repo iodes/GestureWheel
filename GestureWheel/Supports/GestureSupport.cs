@@ -21,6 +21,10 @@ namespace GestureWheel.Supports
         private static readonly InputSimulator _inputSimulator = new();
         #endregion
 
+        #region Properties
+        private static bool IsNativeGestureSupport => Environment.OSVersion.Version.Build >= 22000;
+        #endregion
+
         #region Private Methods
         private static IEnumerable<PointerTouchInfo> CreatePointers(int count)
         {
@@ -51,15 +55,18 @@ namespace GestureWheel.Supports
 
         public static void Stop()
         {
-            _globalHook.MouseUp -= GlobalHook_MouseUp;
-            _globalHook.MouseDown -= GlobalHook_MouseDown;
-            _globalHook.MouseMove -= GlobalHook_MouseMove;
-            _globalHook.MouseDoubleClick -= GlobalHook_MouseDoubleClick;
-            _globalHook.KeyDown -= GlobalHook_KeyDown;
-            _globalHook.KeyUp -= GlobalHook_KeyUp;
+            if (_globalHook is not null)
+            {
+                _globalHook.MouseUp -= GlobalHook_MouseUp;
+                _globalHook.MouseDown -= GlobalHook_MouseDown;
+                _globalHook.MouseMove -= GlobalHook_MouseMove;
+                _globalHook.MouseDoubleClick -= GlobalHook_MouseDoubleClick;
+                _globalHook.KeyDown -= GlobalHook_KeyDown;
+                _globalHook.KeyUp -= GlobalHook_KeyUp;
 
-            _globalHook?.Dispose();
-            _globalHook = null;
+                _globalHook.Dispose();
+                _globalHook = null;
+            }
         }
         #endregion
 
@@ -123,16 +130,31 @@ namespace GestureWheel.Supports
                 }
                 else if (absX >= sensitivity)
                 {
-                    _pointers = CreatePointers(4).ToArray();
-
-                    for (int i = 0; i < _pointers.Length; i++)
+                    if (IsNativeGestureSupport)
                     {
-                        _pointers[i].PointerInfo.PtPixelLocation.X = e.X;
-                        _pointers[i].PointerInfo.PtPixelLocation.Y = e.Y;
-                        _pointers[i].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
-                    }
+                        _pointers = CreatePointers(4).ToArray();
 
-                    TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+                        for (int i = 0; i < _pointers.Length; i++)
+                        {
+                            _pointers[i].PointerInfo.PtPixelLocation.X = e.X;
+                            _pointers[i].PointerInfo.PtPixelLocation.Y = e.Y;
+                            _pointers[i].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+                        }
+
+                        TouchInjector.InjectTouchInput(_pointers.Length, _pointers);
+                    }
+                    else
+                    {
+                        var isRightDirection = _gestureStartX - e.X >= 0;
+
+                        _inputSimulator.Keyboard
+                            .ModifiedKeyStroke(new[] { VirtualKeyCode.CONTROL, VirtualKeyCode.LWIN },
+                                isRightDirection
+                                    ? VirtualKeyCode.RIGHT
+                                    : VirtualKeyCode.LEFT);
+
+                        _isCanceled = true;
+                    }
                 }
             }
             else
