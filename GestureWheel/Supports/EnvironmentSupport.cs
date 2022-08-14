@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace GestureWheel.Supports
@@ -24,6 +25,8 @@ namespace GestureWheel.Supports
                 return _storage;
             }
         }
+
+        public static string Executable => Process.GetCurrentProcess().MainModule?.FileName;
 
         public static string Settings => Path.Combine(Storage, settings);
         #endregion

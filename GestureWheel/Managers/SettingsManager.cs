@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using GestureWheel.Models;
 using GestureWheel.Supports;
 using Microsoft.Win32;
@@ -48,7 +47,7 @@ namespace GestureWheel.Managers
 
             if (Current.UseAutoStartup)
             {
-                key.SetValue(nameof(GestureWheel), $"\"{Process.GetCurrentProcess().MainModule?.FileName}\"");
+                key.SetValue(nameof(GestureWheel), $"\"{EnvironmentSupport.Executable}\"");
             }
             else
             {

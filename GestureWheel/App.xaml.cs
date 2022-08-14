@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using GestureWheel.Managers;
@@ -37,7 +36,7 @@ namespace GestureWheel
                 IsEnabled = true,
                 ToolTipText = "GestureWheel",
                 ContextMenu = new ContextMenu(),
-                Icon = Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly()?.ManifestModule.Name!),
+                Icon = Icon.ExtractAssociatedIcon(EnvironmentSupport.Executable)
             };
 
             _taskbarIcon.TrayMouseDoubleClick += delegate { ShowWithActivate(); };
