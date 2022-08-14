@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ using GestureWheel.Utilities;
 using Hardcodet.Wpf.TaskbarNotification;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Serilog;
 using Wpf.Ui.Common;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 
@@ -72,12 +74,28 @@ namespace GestureWheel
         }
         #endregion
 
+        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.ExceptionObject is not Exception exception)
+                return;
+
+            Log.Error(exception, "An unknown error has occurred!");
+            MessageBox.Show(exception.Message, $"{nameof(GestureWheel)} 오류", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File(Path.Combine(EnvironmentSupport.Logs, "log-.txt"), rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
             _mutex = new Mutex(true, $"{nameof(GestureWheel)}.App.Mutex", out bool createdNew);
 
             if (!createdNew)
             {
+                Log.Warning("The app is already running. Terminates the current process!");
                 Current.Shutdown();
                 return;
             }
@@ -97,15 +115,17 @@ namespace GestureWheel
             if (Environment.GetCommandLineArgs().Contains("/Activate", StringComparer.OrdinalIgnoreCase))
                 ShowWithActivate();
 
+            Log.Information($"{nameof(GestureWheel)} {Assembly.GetExecutingAssembly().GetName().Version} started successfully");
+
             if (SettingsManager.Current.UseAutoUpdate)
             {
                 try
                 {
                     _ = UpdateSupport.CheckUpdateAsync();
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // ignored
+                    Log.Error(ex, "An error occurred during auto update checking!");
                 }
             }
         }
@@ -120,6 +140,8 @@ namespace GestureWheel
 
             _taskbarIcon.IsEnabled = false;
             _taskbarIcon.Dispose();
+
+            Log.Information($"{nameof(GestureWheel)} {Assembly.GetExecutingAssembly().GetName().Version} terminated successfully");
         }
     }
 }

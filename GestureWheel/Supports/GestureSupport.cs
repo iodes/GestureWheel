@@ -5,6 +5,7 @@ using GestureWheel.Interop;
 using GestureWheel.Managers;
 using WindowsHook;
 using WindowsInput;
+using Log = Serilog.Log;
 
 namespace GestureWheel.Supports
 {
@@ -22,7 +23,7 @@ namespace GestureWheel.Supports
         #endregion
 
         #region Properties
-        private static bool IsNativeGestureSupport => Environment.OSVersion.Version.Build >= 22000;
+        private static bool IsNativeGestureSupport { get; set; }
         #endregion
 
         #region Private Methods
@@ -40,7 +41,7 @@ namespace GestureWheel.Supports
         #endregion
 
         #region Public Methods
-        public static bool Start()
+        public static void Start()
         {
             _globalHook = Hook.GlobalEvents();
             _globalHook.MouseUp += GlobalHook_MouseUp;
@@ -50,7 +51,20 @@ namespace GestureWheel.Supports
             _globalHook.KeyDown += GlobalHook_KeyDown;
             _globalHook.KeyUp += GlobalHook_KeyUp;
 
-            return TouchInjector.InitializeTouchInjection(feedbackMode: TouchFeedback.NONE);
+            if (Environment.OSVersion.Version.Build >= 22000)
+            {
+                if (!TouchInjector.InitializeTouchInjection(feedbackMode: TouchFeedback.NONE))
+                {
+                    Log.Warning("This system is Windows 11 or later, but touch injection failed!");
+                    return;
+                }
+
+                IsNativeGestureSupport = true;
+            }
+            else
+            {
+                Log.Warning("This system is Windows 10 or lower, native gesture is not supported!");
+            }
         }
 
         public static void Stop()

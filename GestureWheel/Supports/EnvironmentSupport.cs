@@ -11,6 +11,7 @@ namespace GestureWheel.Supports
         #endregion
 
         #region Constants
+        private const string logsDir = "Logs";
         private const string settings = "Settings.json";
         #endregion
 
@@ -23,6 +24,19 @@ namespace GestureWheel.Supports
                     Directory.CreateDirectory(_storage);
 
                 return _storage;
+            }
+        }
+
+        public static string Logs
+        {
+            get
+            {
+                var combine = Path.Combine(Storage, logsDir);
+
+                if (!Directory.Exists(combine))
+                    Directory.CreateDirectory(combine);
+
+                return combine;
             }
         }
 

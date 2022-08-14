@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GestureWheel.Dialogs;
 using GestureWheel.Windows.Models;
 using Newtonsoft.Json.Linq;
+using Serilog;
 
 namespace GestureWheel.Supports
 {
@@ -35,19 +36,25 @@ namespace GestureWheel.Supports
             var info = await GetLatestUpdateInfo();
 
             if (info is null)
+            {
+                Log.Warning("Check for updates, update information not found");
                 return false;
+            }
 
             var currentVersion = int.Parse(Assembly.GetExecutingAssembly().GetName().Version?.ToString().Replace(".", string.Empty) ?? "0");
             var latestVersion = int.Parse(info.Version?.Replace(".", string.Empty) ?? "0");
 
             if (latestVersion > currentVersion)
             {
+                Log.Information("Check for updates, A newer version is available");
+
                 var updateDialog = new UpdateDialog(info);
                 updateDialog.ShowDialog();
 
                 return true;
             }
 
+            Log.Information("Check for updates, It's already up to date");
             return false;
         }
 

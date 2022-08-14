@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Windows;
 using GestureWheel.Extensions;
 using GestureWheel.Windows.Models;
+using Serilog;
 
 namespace GestureWheel.Dialogs
 {
@@ -53,6 +54,7 @@ namespace GestureWheel.Dialogs
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "An error occurred while updating!");
                 MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
