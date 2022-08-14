@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using GestureWheel.Managers;
@@ -81,6 +82,9 @@ namespace GestureWheel
             InitializeUserInterface();
 
             GestureSupport.Start();
+
+            if (Environment.GetCommandLineArgs().Contains("/Activate", StringComparer.OrdinalIgnoreCase))
+                ShowWithActivate();
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
