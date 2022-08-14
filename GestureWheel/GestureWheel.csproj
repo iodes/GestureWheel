@@ -6,6 +6,8 @@
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <Company>Kodnix</Company>
+    <Copyright>Copyright © Kodnix. All rights reserved.</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using GestureWheel.Managers;
@@ -17,6 +18,8 @@ namespace GestureWheel
     public partial class App
     {
         #region Fields
+        // ReSharper disable once NotAccessedField.Local
+        private Mutex _mutex;
         private MainWindow _mainWindow;
         private TaskbarIcon _taskbarIcon;
         #endregion
@@ -71,6 +74,14 @@ namespace GestureWheel
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            _mutex = new Mutex(true, $"{nameof(GestureWheel)}.App.Mutex", out bool createdNew);
+
+            if (!createdNew)
+            {
+                Current.Shutdown();
+                return;
+            }
+
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,
