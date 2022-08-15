@@ -22,7 +22,6 @@ DisableProgramGroupPage=yes
 ShowLanguageDialog=auto
 OutputBaseFilename={#MyAppName}_{#MyAppVersion}_Setup
 CloseApplications=no
-Compression=lzma
 WizardStyle=modern
 
 [Messages]
