@@ -1,5 +1,5 @@
 #define public Dependency_NoExampleSetup
-#include "CodeDependencies.iss"
+#include "Dependencies.iss"
 
 #define MyAppName "GestureWheel"
 #define MyAppVersion "1.1.0.0"
@@ -58,7 +58,6 @@ begin
 end;
 
 [Files]
-Source: "Utilities\*"; Flags: dontcopy noencryption
 Source: "..\GestureWheel\bin\Release\net6.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs; BeforeInstall: TaskKill('{#MyAppExeName}')
 
 [UninstallDelete]
