@@ -2,7 +2,8 @@
 Mouse wheel gestures app for Windows
 
 ## 프로그램 소개
-![GestureWheel_VRpl4A3DWA](https://user-images.githubusercontent.com/1563800/184585023-7f45e398-22a2-48b9-adf0-41e5dbaf8d56.png)
+![GestureWheel](https://user-images.githubusercontent.com/1563800/184585023-7f45e398-22a2-48b9-adf0-41e5dbaf8d56.png)
+![GestureWheel_Demo](https://user-images.githubusercontent.com/1563800/184630884-ebdd2a31-496b-4a62-85b7-b7b014105929.gif)
 
 마우스 휠 버튼을 이용해서 간편하게 가상 데스크톱을 전환해 보세요!  
 **휠 버튼을 누른 상태로 좌/우로 드래그**해서 손쉽게 가상 데스크톱을 전환할 수 있습니다.  
