@@ -1,4 +1,4 @@
-﻿; -- CodeDependencies.iss --
+﻿; -- Dependencies.iss --
 ;
 ; This script shows how to download and install any dependency such as .NET,
 ; Visual C++ or SQL Server during your application's installation process.
@@ -27,6 +27,74 @@ var
   Dependency_List: array of TDependency_Entry;
   Dependency_NeedRestart, Dependency_ForceX86: Boolean;
   Dependency_DownloadPage: TDownloadWizardPage;
+
+function StrSplit(Text: String; Separator: String): TArrayOfString;
+var
+  i, p: Integer;
+  Dest: TArrayOfString; 
+begin
+  i := 0;
+  repeat
+    SetArrayLength(Dest, i+1);
+    p := Pos(Separator,Text);
+    if p > 0 then begin
+      Dest[i] := Copy(Text, 1, p-1);
+      Text := Copy(Text, p + Length(Separator), Length(Text));
+      i := i + 1;
+    end else begin
+      Dest[i] := Text;
+      Text := '';
+    end;
+  until Length(Text)=0;
+  Result := Dest
+end;
+
+function CompareVersion(V1, V2: string): Integer;
+var
+  P, N1, N2: Integer;
+begin
+  Result := 0;
+  while (Result = 0) and ((V1 <> '') or (V2 <> '')) do
+  begin
+    P := Pos('.', V1);
+    if P > 0 then
+    begin
+      N1 := StrToInt(Copy(V1, 1, P - 1));
+      Delete(V1, 1, P);
+    end
+      else
+    if V1 <> '' then
+    begin
+      N1 := StrToInt(V1);
+      V1 := '';
+    end
+      else
+    begin
+      N1 := 0;
+    end;
+
+    P := Pos('.', V2);
+    if P > 0 then
+    begin
+      N2 := StrToInt(Copy(V2, 1, P - 1));
+      Delete(V2, 1, P);
+    end
+      else
+    if V2 <> '' then
+    begin
+      N2 := StrToInt(V2);
+      V2 := '';
+    end
+      else
+    begin
+      N2 := 0;
+    end;
+
+    if N1 < N2 then Result := -1
+      else
+    if N1 > N2 then Result := 1;
+  end;
+end;
 
 procedure Dependency_Add(const Filename, Parameters, Title, URL, Checksum: String; const ForceSuccess, RestartAfter: Boolean);
 var
@@ -223,13 +291,35 @@ end;
 
 function Dependency_IsNetCoreInstalled(const Version: String): Boolean;
 var
+  I: Integer;
   ResultCode: Integer;
+  VersionCompare: Integer;
+  RequiredVersionArray: TArrayOfString;
+  InstalledVersionArray: TArrayOfString;
+  NetCoreRegistryKey: String;
 begin
-  // source code: https://github.com/dotnet/deployment-tools/tree/master/src/clickonce/native/projects/NetCoreCheck
-  if not FileExists(ExpandConstant('{tmp}{\}') + 'netcorecheck' + Dependency_ArchSuffix + '.exe') then begin
-    ExtractTemporaryFile('netcorecheck' + Dependency_ArchSuffix + '.exe');
+  RequiredVersionArray := StrSplit(Version, ' ');
+  NetCoreRegistryKey := 'SOFTWARE\WOW6432Node\dotnet\Setup\InstalledVersions\x64\sharedfx\' + RequiredVersionArray[0];
+
+  if not IsWin64 then
+    NetCoreRegistryKey :=  'SOFTWARE\dotnet\Setup\InstalledVersions\x86\sharedfx\Microsoft.NETCore.App' + RequiredVersionArray[0];
+
+  if not RegGetValueNames(HKLM, NetCoreRegistryKey, InstalledVersionArray) then begin
+	  Result := False;
+      Exit;
   end;
-  Result := ShellExec('', ExpandConstant('{tmp}{\}') + 'netcorecheck' + Dependency_ArchSuffix + '.exe', Version, '', SW_HIDE, ewWaitUntilTerminated, ResultCode) and (ResultCode = 0);
+
+  for I := 0 to GetArrayLength(InstalledVersionArray) - 1 do
+    begin
+      VersionCompare := CompareVersion(InstalledVersionArray[I], RequiredVersionArray[1]);
+
+      if not (VersionCompare = -1) then begin
+        Result := True;
+        Exit;
+	  end;
+    end;
+
+  Result := False;
 end;
 
 procedure Dependency_AddDotNet35;
