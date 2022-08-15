@@ -22,7 +22,6 @@ ShowLanguageDialog=auto
 OutputBaseFilename={#MyAppName}_{#MyAppVersion}_Setup
 CloseApplications=no
 Compression=lzma
-SolidCompression=yes
 WizardStyle=modern
 
 [Messages]
