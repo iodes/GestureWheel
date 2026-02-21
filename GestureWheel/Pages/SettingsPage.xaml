@@ -1,4 +1,4 @@
-﻿<ui:UiPage
+<Page
     x:Class="GestureWheel.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,80 +10,81 @@
     Title="SettingsPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Scrollable="True"
     mc:Ignorable="d">
 
-    <StackPanel Margin="0,0,0,10" behaviors:MarginSetter.Margin="15,0,15,5">
-        <ui:CardControl Icon="ArrowMove24">
-            <ui:CardControl.Header>
-                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock
-                        FontSize="13"
-                        FontWeight="Medium"
-                        Text="휠 제스처 민감도" />
-                    <TextBlock FontSize="12" Text="휠 제스처의 민감도를 설정합니다." />
-                </StackPanel>
-            </ui:CardControl.Header>
+    <ScrollViewer Padding="0,18,0,0">
+        <StackPanel Margin="0,0,0,10" behaviors:MarginSetter.Margin="15,0,15,5">
+            <ui:CardControl Icon="ArrowMove24">
+                <ui:CardControl.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="휠 제스처 민감도" />
+                        <TextBlock FontSize="12" Text="휠 제스처의 민감도를 설정합니다." />
+                    </StackPanel>
+                </ui:CardControl.Header>
 
-            <ComboBox x:Name="ComboGestureSensitivity" MinWidth="115">
-                <ComboBoxItem Content="높음" />
-                <ComboBoxItem Content="보통" />
-                <ComboBoxItem Content="낮음" />
-            </ComboBox>
-        </ui:CardControl>
+                <ComboBox x:Name="ComboGestureSensitivity" MinWidth="115">
+                    <ComboBoxItem Content="높음" />
+                    <ComboBoxItem Content="보통" />
+                    <ComboBoxItem Content="낮음" />
+                </ComboBox>
+            </ui:CardControl>
 
-        <ui:CardControl Icon="StarLineHorizontal316">
-            <ui:CardControl.Header>
-                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock
-                        FontSize="13"
-                        FontWeight="Medium"
-                        Text="휠 두 번 클릭 동작" />
-                    <TextBlock FontSize="12" Text="휠 버튼을 두 번 클릭 시 실행할 동작을 설정합니다." />
-                </StackPanel>
-            </ui:CardControl.Header>
+            <ui:CardControl Icon="StarLineHorizontal316">
+                <ui:CardControl.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="휠 두 번 클릭 동작" />
+                        <TextBlock FontSize="12" Text="휠 버튼을 두 번 클릭 시 실행할 동작을 설정합니다." />
+                    </StackPanel>
+                </ui:CardControl.Header>
 
-            <ComboBox x:Name="ComboDoubleClickActionType" MinWidth="115">
-                <ComboBoxItem Content="없음" />
-                <ComboBoxItem Content="시작 메뉴" />
-                <ComboBoxItem Content="작업 보기" />
-            </ComboBox>
-        </ui:CardControl>
+                <ComboBox x:Name="ComboDoubleClickActionType" MinWidth="115">
+                    <ComboBoxItem Content="없음" />
+                    <ComboBoxItem Content="시작 메뉴" />
+                    <ComboBoxItem Content="작업 보기" />
+                </ComboBox>
+            </ui:CardControl>
 
-        <controls:CardToggleSwitch x:Name="ToggleQuickNewDesktop" Icon="WindowNew24">
-            <controls:CardToggleSwitch.Header>
-                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock
-                        FontSize="13"
-                        FontWeight="Medium"
-                        Text="휠 클릭으로 새 데스크톱 생성" />
-                    <TextBlock FontSize="12" Text="컨트롤 키를 누른 채로 휠을 클릭하여 새 데스크톱을 만듭니다." />
-                </StackPanel>
-            </controls:CardToggleSwitch.Header>
-        </controls:CardToggleSwitch>
+            <controls:CardToggleSwitch x:Name="ToggleQuickNewDesktop" Icon="WindowNew24">
+                <controls:CardToggleSwitch.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="휠 클릭으로 새 데스크톱 생성" />
+                        <TextBlock FontSize="12" Text="컨트롤 키를 누른 채로 휠을 클릭하여 새 데스크톱을 만듭니다." />
+                    </StackPanel>
+                </controls:CardToggleSwitch.Header>
+            </controls:CardToggleSwitch>
 
-        <controls:CardToggleSwitch x:Name="ToggleAutoStartup" Icon="TasksApp24">
-            <controls:CardToggleSwitch.Header>
-                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock
-                        FontSize="13"
-                        FontWeight="Medium"
-                        Text="시작 프로그램 등록" />
-                    <TextBlock FontSize="12" Text="Windows 시작 시 자동으로 휠 제스처를 활성화합니다." />
-                </StackPanel>
-            </controls:CardToggleSwitch.Header>
-        </controls:CardToggleSwitch>
+            <controls:CardToggleSwitch x:Name="ToggleAutoStartup" Icon="TasksApp24">
+                <controls:CardToggleSwitch.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="시작 프로그램 등록" />
+                        <TextBlock FontSize="12" Text="Windows 시작 시 자동으로 휠 제스처를 활성화합니다." />
+                    </StackPanel>
+                </controls:CardToggleSwitch.Header>
+            </controls:CardToggleSwitch>
 
-        <controls:CardToggleSwitch x:Name="ToggleAutoUpdate" Icon="Earth24">
-            <controls:CardToggleSwitch.Header>
-                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock
-                        FontSize="13"
-                        FontWeight="Medium"
-                        Text="자동 업데이트 확인" />
-                    <TextBlock FontSize="12" Text="자동으로 프로그램의 최신 업데이트를 확인합니다." />
-                </StackPanel>
-            </controls:CardToggleSwitch.Header>
-        </controls:CardToggleSwitch>
-    </StackPanel>
-</ui:UiPage>
+            <controls:CardToggleSwitch x:Name="ToggleAutoUpdate" Icon="Earth24">
+                <controls:CardToggleSwitch.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="자동 업데이트 확인" />
+                        <TextBlock FontSize="12" Text="자동으로 프로그램의 최신 업데이트를 확인합니다." />
+                    </StackPanel>
+                </controls:CardToggleSwitch.Header>
+            </controls:CardToggleSwitch>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

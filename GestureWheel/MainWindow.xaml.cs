@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Windows;
+using GestureWheel.Pages;
 
 namespace GestureWheel
 {
@@ -8,12 +10,18 @@ namespace GestureWheel
         public MainWindow()
         {
             InitializeComponent();
-            Wpf.Ui.Appearance.Watcher.Watch(this);
+            Wpf.Ui.Appearance.SystemThemeWatcher.Watch(this);
+            Loaded += OnLoaded;
             Closing += OnClosing;
         }
         #endregion
 
         #region Private Events
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            RootNavigation.Navigate(typeof(SettingsPage));
+        }
+
         private void OnClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;

@@ -13,8 +13,9 @@ using Hardcodet.Wpf.TaskbarNotification;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
-using Wpf.Ui.Common;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
+using SymbolIcon = Wpf.Ui.Controls.SymbolIcon;
+using SymbolRegular = Wpf.Ui.Controls.SymbolRegular;
 
 namespace GestureWheel
 {
@@ -67,7 +68,7 @@ namespace GestureWheel
             };
 
             if (icon is not null)
-                item.SymbolIcon = icon.Value;
+                item.Icon = new SymbolIcon(icon.Value);
 
             item.Click += delegate { action(); };
             return item;
