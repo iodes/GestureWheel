@@ -1,12 +1,11 @@
 # GestureWheel
 Mouse wheel gestures app for Windows
 
-## About
 ![GestureWheel](https://user-images.githubusercontent.com/1563800/184585023-7f45e398-22a2-48b9-adf0-41e5dbaf8d56.png)
 ![GestureWheel_Demo](https://user-images.githubusercontent.com/1563800/184630884-ebdd2a31-496b-4a62-85b7-b7b014105929.gif)
 
-Use your mouse wheel button to switch virtual desktops quickly and easily!
-**Hold down the wheel button and drag left or right** to smoothly switch between virtual desktops.
+Use your mouse wheel button to switch virtual desktops quickly and easily!  
+**Hold down the wheel button and drag left or right** to smoothly switch between virtual desktops.  
 You can also **double-click the wheel button** to open the Start menu or switch tasks.
 
 ## Features
