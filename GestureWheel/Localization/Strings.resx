@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+
+  <data name="NavSettings"><value>Settings</value></data>
+  <data name="NavAbout"><value>About</value></data>
+
+  <data name="TraySettings"><value>Settings</value></data>
+  <data name="TrayHomepage"><value>Visit Homepage</value></data>
+  <data name="TrayExit"><value>Exit</value></data>
+
+  <data name="WheelSensitivity"><value>Wheel Gesture Sensitivity</value></data>
+  <data name="WheelSensitivityDesc"><value>Sets the sensitivity of wheel gestures.</value></data>
+  <data name="SensitivityHigh"><value>High</value></data>
+  <data name="SensitivityMedium"><value>Medium</value></data>
+  <data name="SensitivityLow"><value>Low</value></data>
+
+  <data name="DoubleClickAction"><value>Wheel Double Click Action</value></data>
+  <data name="DoubleClickActionDesc"><value>Set the action when the wheel button is double-clicked.</value></data>
+  <data name="ActionNone"><value>None</value></data>
+  <data name="ActionStartMenu"><value>Start Menu</value></data>
+  <data name="ActionTaskView"><value>Task View</value></data>
+
+  <data name="QuickNewDesktop"><value>Create New Desktop with Wheel Click</value></data>
+  <data name="QuickNewDesktopDesc"><value>Hold Ctrl and click the wheel to create a new desktop.</value></data>
+
+  <data name="AutoStartup"><value>Register as Startup Program</value></data>
+  <data name="AutoStartupDesc"><value>Automatically enables wheel gestures when Windows starts.</value></data>
+
+  <data name="AutoUpdate"><value>Check for Updates Automatically</value></data>
+  <data name="AutoUpdateDesc"><value>Automatically checks for the latest program updates.</value></data>
+
+  <data name="Language"><value>Language</value></data>
+  <data name="LanguageDesc"><value>Select the display language.</value></data>
+  <data name="LanguageAuto"><value>System Default</value></data>
+
+  <data name="ProgramVersion"><value>Program Version</value></data>
+  <data name="CheckUpdate"><value>Check for Updates</value></data>
+  <data name="CheckUpdateDesc"><value>Check and install the latest program update.</value></data>
+  <data name="Homepage"><value>Official Homepage</value></data>
+  <data name="HomepageDesc"><value>Visit the official program homepage.</value></data>
+
+  <data name="UpdateDialogTitle"><value>Auto Update</value></data>
+  <data name="UpdateDialogText"><value>A new version is available. Update {0} to version {1}?</value></data>
+  <data name="BtnUpdate"><value>Update</value></data>
+  <data name="BtnCancel"><value>Cancel</value></data>
+
+  <data name="MsgAlreadyLatest"><value>You are already using the latest version.</value></data>
+  <data name="MsgNoUpdate"><value>No Update</value></data>
+  <data name="MsgUpdateFailed"><value>Failed to check for updates. Please try again later.</value></data>
+  <data name="MsgUpdateFailedTitle"><value>Update Check Failed</value></data>
+  <data name="MsgError"><value>Error</value></data>
+</root>

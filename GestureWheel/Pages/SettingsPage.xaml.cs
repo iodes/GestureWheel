@@ -1,17 +1,35 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
+using GestureWheel.Localization;
 using GestureWheel.Managers;
 
 namespace GestureWheel.Pages
 {
     public partial class SettingsPage
     {
+        #region Fields
+        private SelectionChangedEventHandler _languageHandler;
+        #endregion
+
         #region Constructor
         public SettingsPage()
         {
             InitializeComponent();
 
             Loaded += OnLoaded;
+
+            _languageHandler = delegate
+            {
+                if (ComboLanguage.SelectedItem is ComboBoxItem item)
+                {
+                    var code = item.Tag?.ToString() ?? "";
+                    SettingsManager.Current.Language = code;
+                    SettingsManager.Save();
+                    LocalizationManager.Instance.ApplyFromSettings(code);
+                }
+            };
+            ComboLanguage.SelectionChanged += _languageHandler;
 
             ToggleAutoUpdate.CheckChanged += delegate
             {
@@ -54,6 +72,10 @@ namespace GestureWheel.Pages
             ToggleQuickNewDesktop.IsChecked = SettingsManager.Current.UseQuickNewDesktop;
             ComboDoubleClickActionType.SelectedIndex = Math.Max(0, Math.Min(ComboDoubleClickActionType.Items.Count - 1, SettingsManager.Current.DoubleClickActionType));
             ComboGestureSensitivity.SelectedIndex = Math.Max(0, Math.Min(ComboGestureSensitivity.Items.Count - 1, SettingsManager.Current.GestureSensitivity));
+
+            ComboLanguage.SelectionChanged -= _languageHandler;
+            ComboLanguage.SelectedIndex = SettingsManager.Current.Language switch { "en" => 1, "ko" => 2, "ja" => 3, _ => 0 };
+            ComboLanguage.SelectionChanged += _languageHandler;
         }
         #endregion
     }

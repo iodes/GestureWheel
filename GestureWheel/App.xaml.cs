@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using GestureWheel.Localization;
 using GestureWheel.Managers;
 using GestureWheel.Supports;
 using GestureWheel.Utilities;
@@ -26,6 +27,9 @@ namespace GestureWheel
         private Mutex _mutex;
         private MainWindow _mainWindow;
         private TaskbarIcon _taskbarIcon;
+        private MenuItem _menuSettings;
+        private MenuItem _menuHomepage;
+        private MenuItem _menuExit;
         #endregion
 
         #region Private Methods
@@ -48,24 +52,30 @@ namespace GestureWheel
 
             _taskbarIcon.TrayMouseDoubleClick += delegate { ShowWithActivate(); };
 
-            _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("프로그램 설정",
-                ShowWithActivate, SymbolRegular.Wrench20));
+            _menuSettings = CreateMenuItem(ShowWithActivate, SymbolRegular.Wrench20);
+            _menuHomepage = CreateMenuItem(() => UrlUtility.Open("https://github.com/iodes/GestureWheel"), SymbolRegular.Open20);
+            _menuExit = CreateMenuItem(() => Current.Shutdown(), SymbolRegular.ArrowExit20);
 
-            _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("홈페이지 방문",
-                () => UrlUtility.Open("https://github.com/iodes/GestureWheel"), SymbolRegular.Open20));
-
+            _taskbarIcon.ContextMenu.Items.Add(_menuSettings);
+            _taskbarIcon.ContextMenu.Items.Add(_menuHomepage);
             _taskbarIcon.ContextMenu.Items.Add(new Separator());
+            _taskbarIcon.ContextMenu.Items.Add(_menuExit);
 
-            _taskbarIcon.ContextMenu.Items.Add(CreateMenuItem("종료",
-                () => Current.Shutdown(), SymbolRegular.ArrowExit20));
+            UpdateTrayMenuHeaders();
+            LocalizationManager.Instance.PropertyChanged += (_, _) => UpdateTrayMenuHeaders();
         }
 
-        private MenuItem CreateMenuItem(string header, Action action, SymbolRegular? icon = null)
+        private void UpdateTrayMenuHeaders()
         {
-            var item = new MenuItem
-            {
-                Header = header
-            };
+            var loc = LocalizationManager.Instance;
+            if (_menuSettings != null) _menuSettings.Header = loc["TraySettings"];
+            if (_menuHomepage != null) _menuHomepage.Header = loc["TrayHomepage"];
+            if (_menuExit != null) _menuExit.Header = loc["TrayExit"];
+        }
+
+        private MenuItem CreateMenuItem(Action action, SymbolRegular? icon = null)
+        {
+            var item = new MenuItem();
 
             if (icon is not null)
                 item.Icon = new SymbolIcon(icon.Value);
@@ -108,6 +118,7 @@ namespace GestureWheel
             };
 
             SettingsManager.Load();
+            LocalizationManager.Instance.ApplyFromSettings(SettingsManager.Current.Language);
             SettingsManager.UpdateAutoStartup();
             InitializeUserInterface();
 

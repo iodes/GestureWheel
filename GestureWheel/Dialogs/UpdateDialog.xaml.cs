@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Windows;
 using GestureWheel.Extensions;
+using GestureWheel.Localization;
 using GestureWheel.Windows.Models;
 using Serilog;
 
@@ -20,7 +21,7 @@ namespace GestureWheel.Dialogs
             Info = info;
             InitializeComponent();
 
-            TextVersion.Text = $"새로운 버전이 출시되었습니다.\n{nameof(GestureWheel)}을 {info.Version} 버전으로 업데이트 하시겠습니까?";
+            TextVersion.Text = string.Format(LocalizationManager.Instance["UpdateDialogText"], nameof(GestureWheel), info.Version);
         }
 
         private async void BtnUpdate_Click(object sender, RoutedEventArgs e)
@@ -55,7 +56,7 @@ namespace GestureWheel.Dialogs
             catch (Exception ex)
             {
                 Log.Error(ex, "An error occurred while updating!");
-                MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, LocalizationManager.Instance["MsgError"], MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

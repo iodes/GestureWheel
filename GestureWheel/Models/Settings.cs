@@ -18,5 +18,8 @@ namespace GestureWheel.Models
 
         [JsonProperty]
         public int GestureSensitivity { get; set; } = 1;
+
+        [JsonProperty]
+        public string Language { get; set; } = "";
     }
 }

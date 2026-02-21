@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+
+  <data name="NavSettings"><value>設定</value></data>
+  <data name="NavAbout"><value>情報</value></data>
+  <data name="TraySettings"><value>プログラム設定</value></data>
+  <data name="TrayHomepage"><value>ホームページを開く</value></data>
+  <data name="TrayExit"><value>終了</value></data>
+  <data name="WheelSensitivity"><value>ホイールジェスチャの感度</value></data>
+  <data name="WheelSensitivityDesc"><value>ホイールジェスチャの感度を設定します。</value></data>
+  <data name="SensitivityHigh"><value>高い</value></data>
+  <data name="SensitivityMedium"><value>普通</value></data>
+  <data name="SensitivityLow"><value>低い</value></data>
+  <data name="DoubleClickAction"><value>ホイールダブルクリック動作</value></data>
+  <data name="DoubleClickActionDesc"><value>ホイールボタンをダブルクリックしたときの動作を設定します。</value></data>
+  <data name="ActionNone"><value>なし</value></data>
+  <data name="ActionStartMenu"><value>スタートメニュー</value></data>
+  <data name="ActionTaskView"><value>タスクビュー</value></data>
+  <data name="QuickNewDesktop"><value>ホイールクリックで新しいデスクトップを作成</value></data>
+  <data name="QuickNewDesktopDesc"><value>Ctrlキーを押しながらホイールをクリックして新しいデスクトップを作成します。</value></data>
+  <data name="AutoStartup"><value>スタートアッププログラムに登録</value></data>
+  <data name="AutoStartupDesc"><value>Windows起動時に自動でホイールジェスチャを有効にします。</value></data>
+  <data name="AutoUpdate"><value>自動更新確認</value></data>
+  <data name="AutoUpdateDesc"><value>自動的に最新のプログラム更新を確認します。</value></data>
+  <data name="Language"><value>言語</value></data>
+  <data name="LanguageDesc"><value>表示言語を選択します。</value></data>
+  <data name="LanguageAuto"><value>システムデフォルト</value></data>
+  <data name="ProgramVersion"><value>プログラムバージョン</value></data>
+  <data name="CheckUpdate"><value>最新アップデートを確認</value></data>
+  <data name="CheckUpdateDesc"><value>プログラムの最新アップデートを確認してインストールします。</value></data>
+  <data name="Homepage"><value>公式ホームページ</value></data>
+  <data name="HomepageDesc"><value>プログラムの公式ホームページを訪問します。</value></data>
+  <data name="UpdateDialogTitle"><value>自動更新</value></data>
+  <data name="UpdateDialogText"><value>新しいバージョンが利用可能です。{0}をバージョン{1}に更新しますか？</value></data>
+  <data name="BtnUpdate"><value>更新</value></data>
+  <data name="BtnCancel"><value>キャンセル</value></data>
+  <data name="MsgAlreadyLatest"><value>すでに最新バージョンを使用しています。</value></data>
+  <data name="MsgNoUpdate"><value>更新なし</value></data>
+  <data name="MsgUpdateFailed"><value>アップデートの確認に失敗しました。しばらくしてからもう一度お試しください。</value></data>
+  <data name="MsgUpdateFailedTitle"><value>更新確認失敗</value></data>
+  <data name="MsgError"><value>エラー</value></data>
+</root>

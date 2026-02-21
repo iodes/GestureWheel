@@ -5,6 +5,7 @@
     xmlns:behaviors="clr-namespace:GestureWheel.Behaviors"
     xmlns:controls="clr-namespace:GestureWheel.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="clr-namespace:GestureWheel.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="SettingsPage"
@@ -14,21 +15,41 @@
 
     <ScrollViewer Padding="0,18,0,0">
         <StackPanel Margin="0,0,0,10" behaviors:MarginSetter.Margin="15,0,15,5">
+            <ui:CardControl Icon="LocalLanguage24">
+                <ui:CardControl.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="{Binding [Language], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock
+                            FontSize="12"
+                            Text="{Binding [LanguageDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ComboBox x:Name="ComboLanguage" MinWidth="115">
+                    <ComboBoxItem Tag="" Content="{Binding [LanguageAuto], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <ComboBoxItem Tag="en" Content="English" />
+                    <ComboBoxItem Tag="ko" Content="한국어" />
+                    <ComboBoxItem Tag="ja" Content="日本語" />
+                </ComboBox>
+            </ui:CardControl>
+
             <ui:CardControl Icon="ArrowMove24">
                 <ui:CardControl.Header>
                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
-                            Text="휠 제스처 민감도" />
-                        <TextBlock FontSize="12" Text="휠 제스처의 민감도를 설정합니다." />
+                            Text="{Binding [WheelSensitivity], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [WheelSensitivityDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
                     </StackPanel>
                 </ui:CardControl.Header>
 
                 <ComboBox x:Name="ComboGestureSensitivity" MinWidth="115">
-                    <ComboBoxItem Content="높음" />
-                    <ComboBoxItem Content="보통" />
-                    <ComboBoxItem Content="낮음" />
+                    <ComboBoxItem Content="{Binding [SensitivityHigh], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <ComboBoxItem Content="{Binding [SensitivityMedium], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <ComboBoxItem Content="{Binding [SensitivityLow], Source={x:Static loc:LocalizationManager.Instance}}" />
                 </ComboBox>
             </ui:CardControl>
 
@@ -38,15 +59,15 @@
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
-                            Text="휠 두 번 클릭 동작" />
-                        <TextBlock FontSize="12" Text="휠 버튼을 두 번 클릭 시 실행할 동작을 설정합니다." />
+                            Text="{Binding [DoubleClickAction], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [DoubleClickActionDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
                     </StackPanel>
                 </ui:CardControl.Header>
 
                 <ComboBox x:Name="ComboDoubleClickActionType" MinWidth="115">
-                    <ComboBoxItem Content="없음" />
-                    <ComboBoxItem Content="시작 메뉴" />
-                    <ComboBoxItem Content="작업 보기" />
+                    <ComboBoxItem Content="{Binding [ActionNone], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <ComboBoxItem Content="{Binding [ActionStartMenu], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <ComboBoxItem Content="{Binding [ActionTaskView], Source={x:Static loc:LocalizationManager.Instance}}" />
                 </ComboBox>
             </ui:CardControl>
 
@@ -56,8 +77,8 @@
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
-                            Text="휠 클릭으로 새 데스크톱 생성" />
-                        <TextBlock FontSize="12" Text="컨트롤 키를 누른 채로 휠을 클릭하여 새 데스크톱을 만듭니다." />
+                            Text="{Binding [QuickNewDesktop], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [QuickNewDesktopDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
                     </StackPanel>
                 </controls:CardToggleSwitch.Header>
             </controls:CardToggleSwitch>
@@ -68,8 +89,8 @@
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
-                            Text="시작 프로그램 등록" />
-                        <TextBlock FontSize="12" Text="Windows 시작 시 자동으로 휠 제스처를 활성화합니다." />
+                            Text="{Binding [AutoStartup], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [AutoStartupDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
                     </StackPanel>
                 </controls:CardToggleSwitch.Header>
             </controls:CardToggleSwitch>
@@ -80,8 +101,8 @@
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
-                            Text="자동 업데이트 확인" />
-                        <TextBlock FontSize="12" Text="자동으로 프로그램의 최신 업데이트를 확인합니다." />
+                            Text="{Binding [AutoUpdate], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [AutoUpdateDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
                     </StackPanel>
                 </controls:CardToggleSwitch.Header>
             </controls:CardToggleSwitch>
