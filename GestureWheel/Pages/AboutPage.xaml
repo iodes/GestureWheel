@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="clr-namespace:GestureWheel.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="clr-namespace:GestureWheel.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="AboutPage"
@@ -19,7 +20,7 @@
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
-                            Text="프로그램 버전" />
+                            Text="{Binding [ProgramVersion], Source={x:Static loc:LocalizationManager.Instance}}" />
                         <TextBlock
                             x:Name="TextVersion"
                             FontSize="12"
@@ -37,8 +38,8 @@
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
-                            Text="최신 업데이트 확인" />
-                        <TextBlock FontSize="12" Text="프로그램의 최신 업데이트를 확인 및 설치합니다." />
+                            Text="{Binding [CheckUpdate], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [CheckUpdateDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
                     </StackPanel>
                 </ui:CardControl.Header>
             </ui:CardControl>
@@ -49,8 +50,8 @@
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
-                            Text="공식 홈페이지" />
-                        <TextBlock FontSize="12" Text="프로그램의 공식 홈페이지를 방문합니다." />
+                            Text="{Binding [Homepage], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [HomepageDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
                     </StackPanel>
                 </ui:CardControl.Header>
             </ui:CardControl>

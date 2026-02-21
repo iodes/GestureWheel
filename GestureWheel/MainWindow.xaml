@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:loc="clr-namespace:GestureWheel.Localization"
     xmlns:pages="clr-namespace:GestureWheel.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="GestureWheel"
@@ -31,7 +32,7 @@
             IsBackButtonVisible="Collapsed">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
-                    Content="설정"
+                    Content="{Binding [NavSettings], Source={x:Static loc:LocalizationManager.Instance}}"
                     TargetPageType="{x:Type pages:SettingsPage}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="Diversity24" />
@@ -40,7 +41,7 @@
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem
-                    Content="정보"
+                    Content="{Binding [NavAbout], Source={x:Static loc:LocalizationManager.Instance}}"
                     TargetPageType="{x:Type pages:AboutPage}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="Info24" />
