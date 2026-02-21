@@ -341,3 +341,6 @@ healthchecksdb
 
 # Installer Output
 Installer/Output
+
+# Git worktrees
+.worktrees/
