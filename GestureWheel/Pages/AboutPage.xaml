@@ -14,9 +14,12 @@
 
     <ScrollViewer Padding="0,18,0,0">
         <StackPanel Margin="0,0,0,10" behaviors:MarginSetter.Margin="15,0,15,5">
-            <ui:CardControl Icon="Info24">
+            <ui:CardControl>
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Tag24" />
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
@@ -29,32 +32,37 @@
                 </ui:CardControl.Header>
             </ui:CardControl>
 
-            <ui:CardControl
+            <ui:CardAction
                 x:Name="BtnCheckUpdate"
                 Click="BtnCheckUpdate_OnClick"
-                Icon="ArrowUpload20">
-                <ui:CardControl.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock
-                            FontSize="13"
-                            FontWeight="Medium"
-                            Text="{Binding [CheckUpdate], Source={x:Static loc:LocalizationManager.Instance}}" />
-                        <TextBlock FontSize="12" Text="{Binding [CheckUpdateDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    </StackPanel>
-                </ui:CardControl.Header>
-            </ui:CardControl>
+                IsChevronVisible="True">
+                <ui:CardAction.Icon>
+                    <ui:SymbolIcon Symbol="ArrowCounterclockwise24" />
+                </ui:CardAction.Icon>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="{Binding [CheckUpdate], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <TextBlock FontSize="12" Text="{Binding [CheckUpdateDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
+                </StackPanel>
+            </ui:CardAction>
 
-            <ui:CardControl x:Name="BtnOpenHomepage" Click="BtnOpenHomepage_OnClick" Icon="Open24">
-                <ui:CardControl.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock
-                            FontSize="13"
-                            FontWeight="Medium"
-                            Text="{Binding [Homepage], Source={x:Static loc:LocalizationManager.Instance}}" />
-                        <TextBlock FontSize="12" Text="{Binding [HomepageDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    </StackPanel>
-                </ui:CardControl.Header>
-            </ui:CardControl>
+            <ui:CardAction
+                x:Name="BtnOpenHomepage"
+                Click="BtnOpenHomepage_OnClick"
+                IsChevronVisible="True">
+                <ui:CardAction.Icon>
+                    <ui:SymbolIcon Symbol="Open24" />
+                </ui:CardAction.Icon>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="{Binding [Homepage], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <TextBlock FontSize="12" Text="{Binding [HomepageDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
+                </StackPanel>
+            </ui:CardAction>
         </StackPanel>
     </ScrollViewer>
 </Page>

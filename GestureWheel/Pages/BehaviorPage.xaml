@@ -1,23 +1,26 @@
 <Page
+    Title="BehaviorPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="GestureWheel.Pages.BehaviorPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="clr-namespace:GestureWheel.Behaviors"
     xmlns:controls="clr-namespace:GestureWheel.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="clr-namespace:GestureWheel.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="BehaviorPage"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ScrollViewer Padding="0,18,0,0">
         <StackPanel Margin="0,0,0,10" behaviors:MarginSetter.Margin="15,0,15,5">
-            <ui:CardControl Icon="ArrowMove24">
+            <ui:CardControl>
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="ArrowMove24" />
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
@@ -26,16 +29,19 @@
                     </StackPanel>
                 </ui:CardControl.Header>
 
-                <ComboBox x:Name="ComboGestureSensitivity" MinWidth="115">
+                <ComboBox MinWidth="115" x:Name="ComboGestureSensitivity">
                     <ComboBoxItem Content="{Binding [SensitivityHigh], Source={x:Static loc:LocalizationManager.Instance}}" />
                     <ComboBoxItem Content="{Binding [SensitivityMedium], Source={x:Static loc:LocalizationManager.Instance}}" />
                     <ComboBoxItem Content="{Binding [SensitivityLow], Source={x:Static loc:LocalizationManager.Instance}}" />
                 </ComboBox>
             </ui:CardControl>
 
-            <ui:CardControl Icon="StarLineHorizontal316">
+            <ui:CardControl>
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="Wand24" />
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
@@ -44,16 +50,19 @@
                     </StackPanel>
                 </ui:CardControl.Header>
 
-                <ComboBox x:Name="ComboDoubleClickActionType" MinWidth="115">
+                <ComboBox MinWidth="115" x:Name="ComboDoubleClickActionType">
                     <ComboBoxItem Content="{Binding [ActionNone], Source={x:Static loc:LocalizationManager.Instance}}" />
                     <ComboBoxItem Content="{Binding [ActionStartMenu], Source={x:Static loc:LocalizationManager.Instance}}" />
                     <ComboBoxItem Content="{Binding [ActionTaskView], Source={x:Static loc:LocalizationManager.Instance}}" />
                 </ComboBox>
             </ui:CardControl>
 
-            <controls:CardToggleSwitch x:Name="ToggleQuickNewDesktop" Icon="WindowNew24">
+            <controls:CardToggleSwitch x:Name="ToggleQuickNewDesktop">
+                <controls:CardToggleSwitch.Icon>
+                    <ui:SymbolIcon Symbol="WindowNew24" />
+                </controls:CardToggleSwitch.Icon>
                 <controls:CardToggleSwitch.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"

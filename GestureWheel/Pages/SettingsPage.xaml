@@ -15,9 +15,12 @@
 
     <ScrollViewer Padding="0,18,0,0">
         <StackPanel Margin="0,0,0,10" behaviors:MarginSetter.Margin="15,0,15,5">
-            <ui:CardControl Icon="LocalLanguage24">
+            <ui:CardControl>
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="LocalLanguage24" />
+                </ui:CardControl.Icon>
                 <ui:CardControl.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
@@ -35,9 +38,12 @@
                 </ComboBox>
             </ui:CardControl>
 
-            <controls:CardToggleSwitch x:Name="ToggleAutoStartup" Icon="TasksApp24">
+            <controls:CardToggleSwitch x:Name="ToggleAutoStartup">
+                <controls:CardToggleSwitch.Icon>
+                    <ui:SymbolIcon Symbol="TasksApp24" />
+                </controls:CardToggleSwitch.Icon>
                 <controls:CardToggleSwitch.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
@@ -47,9 +53,12 @@
                 </controls:CardToggleSwitch.Header>
             </controls:CardToggleSwitch>
 
-            <controls:CardToggleSwitch x:Name="ToggleAutoUpdate" Icon="Earth24">
+            <controls:CardToggleSwitch x:Name="ToggleAutoUpdate">
+                <controls:CardToggleSwitch.Icon>
+                    <ui:SymbolIcon Symbol="Earth24" />
+                </controls:CardToggleSwitch.Icon>
                 <controls:CardToggleSwitch.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             FontSize="13"
                             FontWeight="Medium"
