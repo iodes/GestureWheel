@@ -2,7 +2,7 @@
 #include "CodeDependencies.iss"
 
 #define MyAppName "GestureWheel"
-#define MyAppVersion "1.1.0.0"
+#define MyAppVersion "1.2.0.0"
 #define MyAppPublisher "Kodnix"
 #define MyAppURL "https://github.com/iodes/GestureWheel"
 #define MyAppExeName "GestureWheel.exe"
@@ -38,7 +38,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Code]
 function InitializeSetup: Boolean;
 begin
-    Dependency_AddDotNet60Desktop;
+    Dependency_AddDotNet80Desktop;
     Result := True;
 end;
 
@@ -58,8 +58,7 @@ begin
 end;
 
 [Files]
-Source: "Utilities\*"; Flags: dontcopy noencryption
-Source: "..\GestureWheel\bin\Release\net6.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs; BeforeInstall: TaskKill('{#MyAppExeName}')
+Source: "..\GestureWheel\bin\Release\net8.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs; BeforeInstall: TaskKill('{#MyAppExeName}')
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{userappdata}\{#MyAppName}"
