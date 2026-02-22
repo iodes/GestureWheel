@@ -29,6 +29,9 @@ namespace GestureWheel.Models
         public bool PrioritizeHorizontalScroll { get; set; } = true;
 
         [JsonProperty]
+        public bool PauseInFullScreen { get; set; } = true;
+
+        [JsonProperty]
         public string Language { get; set; } = "";
     }
 }

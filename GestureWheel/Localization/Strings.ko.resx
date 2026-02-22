@@ -43,6 +43,10 @@
   <data name="ReverseGestureDirectionDesc"><value>수평 휠 제스처의 방향을 반전합니다.</value></data>
   <data name="PrioritizeHorizontalScroll"><value>가로 스크롤 우선</value></data>
   <data name="PrioritizeHorizontalScrollDesc"><value>커서가 가로 스크롤 가능한 영역 위에 있을 때 제스처를 억제합니다.</value></data>
+  
+  <data name="PauseInFullScreen"><value>전체화면에서 일시 중지</value></data>
+  <data name="PauseInFullScreenDesc"><value>전체화면 앱이 활성화된 경우 제스처를 일시 중지합니다.</value></data>
+
   <data name="DoubleClickAction"><value>휠 두 번 클릭 동작</value></data>
   <data name="DoubleClickActionDesc"><value>휠 버튼을 두 번 클릭 시 실행할 동작을 설정합니다.</value></data>
   <data name="ActionNone"><value>없음</value></data>

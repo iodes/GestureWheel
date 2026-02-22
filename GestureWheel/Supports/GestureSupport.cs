@@ -7,6 +7,7 @@ using GestureWheel.Interop;
 using GestureWheel.Managers;
 using WindowsHook;
 using WindowsInput;
+using System.Runtime.InteropServices;
 using Log = Serilog.Log;
 
 namespace GestureWheel.Supports
@@ -28,6 +29,22 @@ namespace GestureWheel.Supports
 
         #region Properties
         private static bool IsNativeGestureSupport { get; set; }
+        #endregion
+
+        #region Native Methods
+        internal enum QUERY_USER_NOTIFICATION_STATE
+        {
+            QUNS_NOT_PRESENT = 1,
+            QUNS_BUSY = 2,
+            QUNS_RUNNING_D3D_FULL_SCREEN = 3,
+            QUNS_PRESENTATION_MODE = 4,
+            QUNS_ACCEPTS_NOTIFICATIONS = 5,
+            QUNS_QUIET_TIME = 6,
+            QUNS_APP = 7
+        }
+
+        [DllImport("shell32.dll")]
+        internal static extern int SHQueryUserNotificationState(out QUERY_USER_NOTIFICATION_STATE pquns);
         #endregion
 
         #region Private Methods
@@ -80,6 +97,25 @@ namespace GestureWheel.Supports
             catch (Exception ex)
             {
                 Log.Debug("CheckHorizontalScroll failed: {Message}", ex.Message);
+            }
+
+            return false;
+        }
+
+        private static bool IsFullScreenActive()
+        {
+            try
+            {
+                if (SHQueryUserNotificationState(out var state) == 0) // S_OK
+                {
+                    return state == QUERY_USER_NOTIFICATION_STATE.QUNS_BUSY ||
+                           state == QUERY_USER_NOTIFICATION_STATE.QUNS_RUNNING_D3D_FULL_SCREEN ||
+                           state == QUERY_USER_NOTIFICATION_STATE.QUNS_PRESENTATION_MODE;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("IsFullScreenActive failed: {Message}", ex.Message);
             }
 
             return false;
@@ -162,6 +198,12 @@ namespace GestureWheel.Supports
         {
             if (e.Button is not MouseButtons.Middle)
                 return;
+
+            if (SettingsManager.Current.PauseInFullScreen && IsFullScreenActive())
+            {
+                _isWheelDown = false;
+                return;
+            }
 
             _isWheelDown = true;
             _gestureStartX = e.X;

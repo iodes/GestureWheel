@@ -18,6 +18,12 @@ namespace GestureWheel.Pages
                 SettingsManager.Save();
             };
 
+            TogglePauseInFullScreen.CheckChanged += delegate
+            {
+                SettingsManager.Current.PauseInFullScreen = TogglePauseInFullScreen.IsChecked;
+                SettingsManager.Save();
+            };
+
             ToggleReverseGestureDirection.CheckChanged += delegate
             {
                 SettingsManager.Current.ReverseGestureDirection = ToggleReverseGestureDirection.IsChecked;
@@ -52,6 +58,7 @@ namespace GestureWheel.Pages
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ToggleQuickNewDesktop.IsChecked = SettingsManager.Current.UseQuickNewDesktop;
+            TogglePauseInFullScreen.IsChecked = SettingsManager.Current.PauseInFullScreen;
             ToggleReverseGestureDirection.IsChecked = SettingsManager.Current.ReverseGestureDirection;
             TogglePrioritizeHorizontalScroll.IsChecked = SettingsManager.Current.PrioritizeHorizontalScroll;
             ComboDoubleClickActionType.SelectedIndex = Math.Max(0, Math.Min(ComboDoubleClickActionType.Items.Count - 1, SettingsManager.Current.DoubleClickActionType));

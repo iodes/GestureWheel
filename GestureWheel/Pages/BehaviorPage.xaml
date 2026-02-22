@@ -93,6 +93,21 @@
                 </controls:CardToggleSwitch.Header>
             </controls:CardToggleSwitch>
 
+            <controls:CardToggleSwitch x:Name="TogglePauseInFullScreen">
+                <controls:CardToggleSwitch.Icon>
+                    <ui:SymbolIcon Symbol="FullScreenMaximize24" />
+                </controls:CardToggleSwitch.Icon>
+                <controls:CardToggleSwitch.Header>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="{Binding [PauseInFullScreen], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [PauseInFullScreenDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    </StackPanel>
+                </controls:CardToggleSwitch.Header>
+            </controls:CardToggleSwitch>
+
             <controls:CardToggleSwitch x:Name="TogglePrioritizeHorizontalScroll">
                 <controls:CardToggleSwitch.Icon>
                     <ui:SymbolIcon Symbol="ContentView24" />

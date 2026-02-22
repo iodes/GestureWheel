@@ -47,6 +47,9 @@
   <data name="PrioritizeHorizontalScroll"><value>Prioritize Horizontal Scroll</value></data>
   <data name="PrioritizeHorizontalScrollDesc"><value>Suppresses gesture when the cursor is over a horizontally scrollable area.</value></data>
 
+  <data name="PauseInFullScreen"><value>Pause in Full Screen</value></data>
+  <data name="PauseInFullScreenDesc"><value>Suspends gestures when a full-screen application is active.</value></data>
+
   <data name="DoubleClickAction"><value>Wheel Double Click Action</value></data>
   <data name="DoubleClickActionDesc"><value>Set the action when the wheel button is double-clicked.</value></data>
   <data name="ActionNone"><value>None</value></data>

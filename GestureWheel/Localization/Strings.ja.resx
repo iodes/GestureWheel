@@ -43,6 +43,10 @@
   <data name="ReverseGestureDirectionDesc"><value>水平ホイールジェスチャの方向を反転します。</value></data>
   <data name="PrioritizeHorizontalScroll"><value>横スクロールを優先</value></data>
   <data name="PrioritizeHorizontalScrollDesc"><value>カーソルが横スクロール可能な領域にあるとき、ジェスチャーを抑制します。</value></data>
+  
+  <data name="PauseInFullScreen"><value>フルスクリーンで一時停止</value></data>
+  <data name="PauseInFullScreenDesc"><value>フルスクリーンアプリがアクティブな場合、ジェスチャーを一時停止します。</value></data>
+
   <data name="DoubleClickAction"><value>ホイールダブルクリック動作</value></data>
   <data name="DoubleClickActionDesc"><value>ホイールボタンをダブルクリックしたときの動作を設定します。</value></data>
   <data name="ActionNone"><value>なし</value></data>
