@@ -18,6 +18,18 @@ namespace GestureWheel.Pages
                 SettingsManager.Save();
             };
 
+            ToggleReverseGestureDirection.CheckChanged += delegate
+            {
+                SettingsManager.Current.ReverseGestureDirection = ToggleReverseGestureDirection.IsChecked;
+                SettingsManager.Save();
+            };
+
+            TogglePrioritizeHorizontalScroll.CheckChanged += delegate
+            {
+                SettingsManager.Current.PrioritizeHorizontalScroll = TogglePrioritizeHorizontalScroll.IsChecked;
+                SettingsManager.Save();
+            };
+
             ComboDoubleClickActionType.SelectionChanged += delegate
             {
                 SettingsManager.Current.DoubleClickActionType = ComboDoubleClickActionType.SelectedIndex;
@@ -29,13 +41,22 @@ namespace GestureWheel.Pages
                 SettingsManager.Current.GestureSensitivity = ComboGestureSensitivity.SelectedIndex;
                 SettingsManager.Save();
             };
+
+            ComboGestureAcceleration.SelectionChanged += delegate
+            {
+                SettingsManager.Current.GestureAcceleration = ComboGestureAcceleration.SelectedIndex;
+                SettingsManager.Save();
+            };
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             ToggleQuickNewDesktop.IsChecked = SettingsManager.Current.UseQuickNewDesktop;
+            ToggleReverseGestureDirection.IsChecked = SettingsManager.Current.ReverseGestureDirection;
+            TogglePrioritizeHorizontalScroll.IsChecked = SettingsManager.Current.PrioritizeHorizontalScroll;
             ComboDoubleClickActionType.SelectedIndex = Math.Max(0, Math.Min(ComboDoubleClickActionType.Items.Count - 1, SettingsManager.Current.DoubleClickActionType));
             ComboGestureSensitivity.SelectedIndex = Math.Max(0, Math.Min(ComboGestureSensitivity.Items.Count - 1, SettingsManager.Current.GestureSensitivity));
+            ComboGestureAcceleration.SelectedIndex = Math.Max(0, Math.Min(ComboGestureAcceleration.Items.Count - 1, SettingsManager.Current.GestureAcceleration));
         }
     }
 }

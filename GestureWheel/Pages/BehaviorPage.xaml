@@ -38,6 +38,27 @@
 
             <ui:CardControl>
                 <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="TopSpeed24" />
+                </ui:CardControl.Icon>
+                <ui:CardControl.Header>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="{Binding [GestureAcceleration], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [GestureAccelerationDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    </StackPanel>
+                </ui:CardControl.Header>
+
+                <ComboBox MinWidth="115" x:Name="ComboGestureAcceleration">
+                    <ComboBoxItem Content="{Binding [AccelerationHigh], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <ComboBoxItem Content="{Binding [AccelerationMedium], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    <ComboBoxItem Content="{Binding [AccelerationLow], Source={x:Static loc:LocalizationManager.Instance}}" />
+                </ComboBox>
+            </ui:CardControl>
+
+            <ui:CardControl>
+                <ui:CardControl.Icon>
                     <ui:SymbolIcon Symbol="Wand24" />
                 </ui:CardControl.Icon>
                 <ui:CardControl.Header>
@@ -68,6 +89,36 @@
                             FontWeight="Medium"
                             Text="{Binding [QuickNewDesktop], Source={x:Static loc:LocalizationManager.Instance}}" />
                         <TextBlock FontSize="12" Text="{Binding [QuickNewDesktopDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    </StackPanel>
+                </controls:CardToggleSwitch.Header>
+            </controls:CardToggleSwitch>
+
+            <controls:CardToggleSwitch x:Name="TogglePrioritizeHorizontalScroll">
+                <controls:CardToggleSwitch.Icon>
+                    <ui:SymbolIcon Symbol="ContentView24" />
+                </controls:CardToggleSwitch.Icon>
+                <controls:CardToggleSwitch.Header>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="{Binding [PrioritizeHorizontalScroll], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [PrioritizeHorizontalScrollDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
+                    </StackPanel>
+                </controls:CardToggleSwitch.Header>
+            </controls:CardToggleSwitch>
+
+            <controls:CardToggleSwitch x:Name="ToggleReverseGestureDirection">
+                <controls:CardToggleSwitch.Icon>
+                    <ui:SymbolIcon Symbol="ArrowSwap24" />
+                </controls:CardToggleSwitch.Icon>
+                <controls:CardToggleSwitch.Header>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="{Binding [ReverseGestureDirection], Source={x:Static loc:LocalizationManager.Instance}}" />
+                        <TextBlock FontSize="12" Text="{Binding [ReverseGestureDirectionDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
                     </StackPanel>
                 </controls:CardToggleSwitch.Header>
             </controls:CardToggleSwitch>

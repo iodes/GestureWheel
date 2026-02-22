@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Automation;
 using GestureWheel.Interop;
 using GestureWheel.Managers;
 using WindowsHook;
@@ -20,6 +22,8 @@ namespace GestureWheel.Supports
         private static PointerTouchInfo[] _pointers;
         private static IKeyboardMouseEvents _globalHook;
         private static readonly InputSimulator _inputSimulator = new();
+        private static volatile bool _hasHorizontalScrollAtClick;
+        private static Task _horizontalScrollCheckTask;
         #endregion
 
         #region Properties
@@ -37,6 +41,48 @@ namespace GestureWheel.Supports
 
                 yield return pointer;
             }
+        }
+
+        private static bool CheckHorizontalScroll(int x, int y)
+        {
+            try
+            {
+                var element = AutomationElement.FromPoint(new System.Windows.Point(x, y));
+
+                if (element == null || element == AutomationElement.RootElement)
+                    return false;
+
+                var current = element;
+
+                for (int depth = 0; depth < 12 && current != null; depth++)
+                {
+                    if (current == AutomationElement.RootElement)
+                        break;
+
+                    if (current.TryGetCurrentPattern(ScrollPattern.Pattern, out var patternObj))
+                    {
+                        var scroll = (ScrollPattern)patternObj;
+
+                        if (scroll.Current.HorizontallyScrollable)
+                            return true;
+                    }
+
+                    try
+                    {
+                        current = TreeWalker.ControlViewWalker.GetParent(current);
+                    }
+                    catch
+                    {
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("CheckHorizontalScroll failed: {Message}", ex.Message);
+            }
+
+            return false;
         }
         #endregion
 
@@ -108,6 +154,8 @@ namespace GestureWheel.Supports
 
             _isWheelDown = false;
             _isCanceled = false;
+            _hasHorizontalScrollAtClick = false;
+            _horizontalScrollCheckTask = null;
         }
 
         private static void GlobalHook_MouseDown(object sender, MouseEventArgs e)
@@ -118,6 +166,17 @@ namespace GestureWheel.Supports
             _isWheelDown = true;
             _gestureStartX = e.X;
             _gestureStartY = e.Y;
+            _hasHorizontalScrollAtClick = false;
+
+            if (SettingsManager.Current.PrioritizeHorizontalScroll)
+            {
+                var clickX = e.X;
+                var clickY = e.Y;
+                _horizontalScrollCheckTask = Task.Run(() =>
+                {
+                    _hasHorizontalScrollAtClick = CheckHorizontalScroll(clickX, clickY);
+                });
+            }
         }
 
         private static void GlobalHook_MouseMove(object sender, MouseEventArgs e)
@@ -144,13 +203,42 @@ namespace GestureWheel.Supports
                 }
                 else if (absX >= sensitivity)
                 {
+                    try { _horizontalScrollCheckTask?.Wait(80); } catch { }
+
+                    if (_hasHorizontalScrollAtClick)
+                    {
+                        _isCanceled = true;
+                        return;
+                    }
+
+                    var accelerationMultiplier = SettingsManager.Current.GestureAcceleration switch
+                    {
+                        0 => 3.0,
+                        1 => 1.5,
+                        2 => 1.0,
+                        _ => 1.5
+                    };
+
                     if (IsNativeGestureSupport)
                     {
                         _pointers = CreatePointers(4).ToArray();
 
                         for (int i = 0; i < _pointers.Length; i++)
                         {
-                            _pointers[i].PointerInfo.PtPixelLocation.X = e.X;
+                            var targetX = e.X;
+
+                            if (SettingsManager.Current.ReverseGestureDirection)
+                            {
+                                var deltaX = e.X - _gestureStartX;
+                                targetX = _gestureStartX - (int)(deltaX * accelerationMultiplier);
+                            }
+                            else
+                            {
+                                var deltaX = e.X - _gestureStartX;
+                                targetX = _gestureStartX + (int)(deltaX * accelerationMultiplier);
+                            }
+
+                            _pointers[i].PointerInfo.PtPixelLocation.X = targetX;
                             _pointers[i].PointerInfo.PtPixelLocation.Y = e.Y;
                             _pointers[i].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
                         }
@@ -160,6 +248,9 @@ namespace GestureWheel.Supports
                     else
                     {
                         var isRightDirection = _gestureStartX - e.X >= 0;
+
+                        if (SettingsManager.Current.ReverseGestureDirection)
+                            isRightDirection = !isRightDirection;
 
                         _inputSimulator.Keyboard
                             .ModifiedKeyStroke(new[] { VirtualKeyCode.CONTROL, VirtualKeyCode.LWIN },
@@ -173,9 +264,30 @@ namespace GestureWheel.Supports
             }
             else
             {
+                var accelerationMultiplier = SettingsManager.Current.GestureAcceleration switch
+                {
+                    0 => 3.0,
+                    1 => 1.5,
+                    2 => 1.0,
+                    _ => 1.5
+                };
+
                 for (int i = 0; i < _pointers.Length; i++)
                 {
-                    _pointers[i].PointerInfo.PtPixelLocation.X = e.X;
+                    var targetX = e.X;
+
+                    if (SettingsManager.Current.ReverseGestureDirection)
+                    {
+                        var deltaX = e.X - _gestureStartX;
+                        targetX = _gestureStartX - (int)(deltaX * accelerationMultiplier);
+                    }
+                    else
+                    {
+                        var deltaX = e.X - _gestureStartX;
+                        targetX = _gestureStartX + (int)(deltaX * accelerationMultiplier);
+                    }
+
+                    _pointers[i].PointerInfo.PtPixelLocation.X = targetX;
                     _pointers[i].PointerInfo.PtPixelLocation.Y = e.Y;
                     _pointers[i].PointerInfo.PointerFlags = PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT;
                 }

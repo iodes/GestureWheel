@@ -32,6 +32,17 @@
   <data name="SensitivityHigh"><value>高い</value></data>
   <data name="SensitivityMedium"><value>普通</value></data>
   <data name="SensitivityLow"><value>低い</value></data>
+
+  <data name="GestureAcceleration"><value>ホイールジェスチャの加速度</value></data>
+  <data name="GestureAccelerationDesc"><value>ホイールジェスチャの加速度を設定します。</value></data>
+  <data name="AccelerationHigh"><value>高い</value></data>
+  <data name="AccelerationMedium"><value>普通</value></data>
+  <data name="AccelerationLow"><value>低い</value></data>
+
+  <data name="ReverseGestureDirection"><value>ジェスチャー方向の反転</value></data>
+  <data name="ReverseGestureDirectionDesc"><value>水平ホイールジェスチャの方向を反転します。</value></data>
+  <data name="PrioritizeHorizontalScroll"><value>横スクロールを優先</value></data>
+  <data name="PrioritizeHorizontalScrollDesc"><value>カーソルが横スクロール可能な領域にあるとき、ジェスチャーを抑制します。</value></data>
   <data name="DoubleClickAction"><value>ホイールダブルクリック動作</value></data>
   <data name="DoubleClickActionDesc"><value>ホイールボタンをダブルクリックしたときの動作を設定します。</value></data>
   <data name="ActionNone"><value>なし</value></data>

@@ -20,6 +20,15 @@ namespace GestureWheel.Models
         public int GestureSensitivity { get; set; } = 1;
 
         [JsonProperty]
+        public int GestureAcceleration { get; set; } = 1;
+
+        [JsonProperty]
+        public bool ReverseGestureDirection { get; set; } = false;
+
+        [JsonProperty]
+        public bool PrioritizeHorizontalScroll { get; set; } = true;
+
+        [JsonProperty]
         public string Language { get; set; } = "";
     }
 }

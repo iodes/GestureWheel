@@ -35,6 +35,18 @@
   <data name="SensitivityMedium"><value>Medium</value></data>
   <data name="SensitivityLow"><value>Low</value></data>
 
+  <data name="GestureAcceleration"><value>Wheel Gesture Acceleration</value></data>
+  <data name="GestureAccelerationDesc"><value>Sets the acceleration multiplier of the wheel gesture.</value></data>
+  <data name="AccelerationHigh"><value>High</value></data>
+  <data name="AccelerationMedium"><value>Medium</value></data>
+  <data name="AccelerationLow"><value>Low</value></data>
+
+  <data name="ReverseGestureDirection"><value>Reverse Gesture Direction</value></data>
+  <data name="ReverseGestureDirectionDesc"><value>Reverses the direction of the horizontal wheel gesture.</value></data>
+
+  <data name="PrioritizeHorizontalScroll"><value>Prioritize Horizontal Scroll</value></data>
+  <data name="PrioritizeHorizontalScrollDesc"><value>Suppresses gesture when the cursor is over a horizontally scrollable area.</value></data>
+
   <data name="DoubleClickAction"><value>Wheel Double Click Action</value></data>
   <data name="DoubleClickActionDesc"><value>Set the action when the wheel button is double-clicked.</value></data>
   <data name="ActionNone"><value>None</value></data>

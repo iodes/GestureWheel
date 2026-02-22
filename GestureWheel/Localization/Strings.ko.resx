@@ -32,6 +32,17 @@
   <data name="SensitivityHigh"><value>높음</value></data>
   <data name="SensitivityMedium"><value>보통</value></data>
   <data name="SensitivityLow"><value>낮음</value></data>
+
+  <data name="GestureAcceleration"><value>휠 제스처 가속도</value></data>
+  <data name="GestureAccelerationDesc"><value>휠 제스처의 가속도를 설정합니다.</value></data>
+  <data name="AccelerationHigh"><value>높음</value></data>
+  <data name="AccelerationMedium"><value>보통</value></data>
+  <data name="AccelerationLow"><value>낮음</value></data>
+
+  <data name="ReverseGestureDirection"><value>제스처 방향 반전</value></data>
+  <data name="ReverseGestureDirectionDesc"><value>수평 휠 제스처의 방향을 반전합니다.</value></data>
+  <data name="PrioritizeHorizontalScroll"><value>가로 스크롤 우선</value></data>
+  <data name="PrioritizeHorizontalScrollDesc"><value>커서가 가로 스크롤 가능한 영역 위에 있을 때 제스처를 억제합니다.</value></data>
   <data name="DoubleClickAction"><value>휠 두 번 클릭 동작</value></data>
   <data name="DoubleClickActionDesc"><value>휠 버튼을 두 번 클릭 시 실행할 동작을 설정합니다.</value></data>
   <data name="ActionNone"><value>없음</value></data>
