@@ -19,7 +19,7 @@ namespace GestureWheel
         #region Private Events
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            RootNavigation.Navigate(typeof(SettingsPage));
+            RootNavigation.Navigate(typeof(BehaviorPage));
         }
 
         private void OnClosing(object sender, CancelEventArgs e)

@@ -32,17 +32,17 @@
             IsBackButtonVisible="Collapsed">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
-                    Content="{Binding [NavSettings], Source={x:Static loc:LocalizationManager.Instance}}"
-                    TargetPageType="{x:Type pages:SettingsPage}">
-                    <ui:NavigationViewItem.Icon>
-                        <ui:SymbolIcon Symbol="Diversity24" />
-                    </ui:NavigationViewItem.Icon>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem
                     Content="{Binding [NavBehavior], Source={x:Static loc:LocalizationManager.Instance}}"
                     TargetPageType="{x:Type pages:BehaviorPage}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="CursorClick24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem
+                    Content="{Binding [NavSettings], Source={x:Static loc:LocalizationManager.Instance}}"
+                    TargetPageType="{x:Type pages:SettingsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Diversity24" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
