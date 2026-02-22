@@ -22,6 +22,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="NavSettings"><value>Settings</value></data>
+  <data name="NavBehavior"><value>Behavior</value></data>
   <data name="NavAbout"><value>About</value></data>
 
   <data name="TraySettings"><value>Settings</value></data>

@@ -22,6 +22,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="NavSettings"><value>설정</value></data>
+  <data name="NavBehavior"><value>동작</value></data>
   <data name="NavAbout"><value>정보</value></data>
   <data name="TraySettings"><value>프로그램 설정</value></data>
   <data name="TrayHomepage"><value>홈페이지 방문</value></data>

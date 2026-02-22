@@ -22,6 +22,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
 
   <data name="NavSettings"><value>設定</value></data>
+  <data name="NavBehavior"><value>動作</value></data>
   <data name="NavAbout"><value>情報</value></data>
   <data name="TraySettings"><value>プログラム設定</value></data>
   <data name="TrayHomepage"><value>ホームページを開く</value></data>
