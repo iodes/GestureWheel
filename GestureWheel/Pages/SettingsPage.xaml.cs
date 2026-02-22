@@ -43,24 +43,6 @@ namespace GestureWheel.Pages
                 SettingsManager.UpdateAutoStartup();
                 SettingsManager.Save();
             };
-
-            ToggleQuickNewDesktop.CheckChanged += delegate
-            {
-                SettingsManager.Current.UseQuickNewDesktop = ToggleQuickNewDesktop.IsChecked;
-                SettingsManager.Save();
-            };
-
-            ComboDoubleClickActionType.SelectionChanged += delegate
-            {
-                SettingsManager.Current.DoubleClickActionType = ComboDoubleClickActionType.SelectedIndex;
-                SettingsManager.Save();
-            };
-
-            ComboGestureSensitivity.SelectionChanged += delegate
-            {
-                SettingsManager.Current.GestureSensitivity = ComboGestureSensitivity.SelectedIndex;
-                SettingsManager.Save();
-            };
         }
         #endregion
 
@@ -69,9 +51,6 @@ namespace GestureWheel.Pages
         {
             ToggleAutoUpdate.IsChecked = SettingsManager.Current.UseAutoUpdate;
             ToggleAutoStartup.IsChecked = SettingsManager.Current.UseAutoStartup;
-            ToggleQuickNewDesktop.IsChecked = SettingsManager.Current.UseQuickNewDesktop;
-            ComboDoubleClickActionType.SelectedIndex = Math.Max(0, Math.Min(ComboDoubleClickActionType.Items.Count - 1, SettingsManager.Current.DoubleClickActionType));
-            ComboGestureSensitivity.SelectedIndex = Math.Max(0, Math.Min(ComboGestureSensitivity.Items.Count - 1, SettingsManager.Current.GestureSensitivity));
 
             ComboLanguage.SelectionChanged -= _languageHandler;
             ComboLanguage.SelectedIndex = SettingsManager.Current.Language switch { "en" => 1, "ko" => 2, "ja" => 3, _ => 0 };

@@ -35,54 +35,6 @@
                 </ComboBox>
             </ui:CardControl>
 
-            <ui:CardControl Icon="ArrowMove24">
-                <ui:CardControl.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock
-                            FontSize="13"
-                            FontWeight="Medium"
-                            Text="{Binding [WheelSensitivity], Source={x:Static loc:LocalizationManager.Instance}}" />
-                        <TextBlock FontSize="12" Text="{Binding [WheelSensitivityDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    </StackPanel>
-                </ui:CardControl.Header>
-
-                <ComboBox x:Name="ComboGestureSensitivity" MinWidth="115">
-                    <ComboBoxItem Content="{Binding [SensitivityHigh], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    <ComboBoxItem Content="{Binding [SensitivityMedium], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    <ComboBoxItem Content="{Binding [SensitivityLow], Source={x:Static loc:LocalizationManager.Instance}}" />
-                </ComboBox>
-            </ui:CardControl>
-
-            <ui:CardControl Icon="StarLineHorizontal316">
-                <ui:CardControl.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock
-                            FontSize="13"
-                            FontWeight="Medium"
-                            Text="{Binding [DoubleClickAction], Source={x:Static loc:LocalizationManager.Instance}}" />
-                        <TextBlock FontSize="12" Text="{Binding [DoubleClickActionDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    </StackPanel>
-                </ui:CardControl.Header>
-
-                <ComboBox x:Name="ComboDoubleClickActionType" MinWidth="115">
-                    <ComboBoxItem Content="{Binding [ActionNone], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    <ComboBoxItem Content="{Binding [ActionStartMenu], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    <ComboBoxItem Content="{Binding [ActionTaskView], Source={x:Static loc:LocalizationManager.Instance}}" />
-                </ComboBox>
-            </ui:CardControl>
-
-            <controls:CardToggleSwitch x:Name="ToggleQuickNewDesktop" Icon="WindowNew24">
-                <controls:CardToggleSwitch.Header>
-                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock
-                            FontSize="13"
-                            FontWeight="Medium"
-                            Text="{Binding [QuickNewDesktop], Source={x:Static loc:LocalizationManager.Instance}}" />
-                        <TextBlock FontSize="12" Text="{Binding [QuickNewDesktopDesc], Source={x:Static loc:LocalizationManager.Instance}}" />
-                    </StackPanel>
-                </controls:CardToggleSwitch.Header>
-            </controls:CardToggleSwitch>
-
             <controls:CardToggleSwitch x:Name="ToggleAutoStartup" Icon="TasksApp24">
                 <controls:CardToggleSwitch.Header>
                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
